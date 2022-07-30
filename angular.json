@@ -113,9 +113,21 @@
               "devServerTarget": "com-tweetapp:serve:production"
             }
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "com-tweetapp"
+  "defaultProject": "com-tweetapp",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
