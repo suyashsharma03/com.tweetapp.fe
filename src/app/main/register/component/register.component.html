@@ -1,57 +1,100 @@
 <section class="height-100 gradient-custom">
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-          <div class="card bg-dark text-white" style="border-radius: 1rem;">
-            <div class="card-body p-5 text-center">
-  
-              <div class="mb-md-5 mt-md-4 pb-5">
-  
-                <h2 class="fw-bold mb-2 text-uppercase">Registration</h2>
-  
-                <div class="form-outline form-white mb-4">
-                    <label class="form-label" for="fName">First Name</label>
-                    <input type="text" id="fName" class="form-control form-control-lg" />
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card bg-dark text-white shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="fw-bold mb-2 pb-4 text-uppercase text-center">{{ "registration" | translate }}</h3>
+            <form>
+
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="firstName">{{ "firstName" | translate }}</label>
+                    <input type="text" id="firstName" class="form-control form-control-lg" />
+                  </div>
                 </div>
-                <div class="form-outline form-white mb-4">
-                    <label class="form-label" for="lName">Last Name</label>
-                    <input type="text" id="lName" class="form-control form-control-lg" />
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="lastName">{{ "lastName" | translate }}</label>
+                    <input type="text" id="lastName" class="form-control form-control-lg" />
+                  </div>
                 </div>
-                <div class="form-outline form-white mb-4">
-                    <label class="form-label" for="typeEmailX">Email</label>
-                    <input type="email" id="typeEmailX" class="form-control form-control-lg" />
-                </div>
-                <div class="form-outline form-white mb-4">
-                    <label class="form-label" for="typePasswordX">Password</label>
-                    <input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                </div>
-                <div class="form-outline form-white mb-4">
-                    <label class="form-label" for="typeConfirmPasswordX">Confirm Password</label>
-                    <input type="password" id="typeConfirmPasswordX" class="form-control form-control-lg" />
-                </div>
-                <div class="form-outline form-white mb-4">
-                    <label class="form-label" for="typeConfirmPasswordX">Confirm Password</label>
-                    <input type="password" id="typeConfirmPasswordX" class="form-control form-control-lg" />
-                </div>
-                <div class="form-outline form-white mb-4">
-                  <!-- <mat-label>Date of Birth</mat-label>
-                  <input matInput [matDatepicker]="dp" [formControl]="date">
-                  <mat-hint>MMMM DD, YYYY</mat-hint>
-                  <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-                  <mat-datepicker #dp></mat-datepicker> -->
-                  <label class="form-label" for="typeDateOfBirthX">Date Of Birth</label>
-                  <input type="date" id="typeDateOfBirthX" class="form-control form-control-lg" />
-                </div>
-                <button class="btn btn-outline-light btn-lg px-5" type="submit">Register</button> 
               </div>
-  
-              <div>
-                <p class="mb-0"><a href="#!" class="text-white-50 fw-bold">Login</a>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 d-flex align-items-center">
+                  <div class="form-outline form-white mb-4">
+                    <label class="form-label" for="email">{{ "email" | translate }}</label>
+                    <input type="email" id="email" class="form-control form-control-lg" />
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="phoneNumber">{{ "phone" | translate }}</label>
+                    <input type="tel" id="phoneNumber" class="form-control form-control-lg" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline form-white mb-4">
+                    <label class="form-label" for="typePasswordX">{{ "password" | translate }}</label>
+                    <input type="password" id="typePasswordX" class="form-control form-control-lg" />
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline form-white mb-4">
+                    <label class="form-label" for="typeConfirmPasswordX">{{ "confirmPassword" | translate }}</label>
+                    <input type="password" id="typeConfirmPasswordX" class="form-control form-control-lg" />
+                </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline form-white mb-4">
+                    <label class="form-label" for="typeDateOfBirthX">{{ "dob" | translate }}</label>
+                    <input type="date" id="typeDateOfBirthX" class="form-control form-control-lg" />
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <h6 class="mb-2 pb-1">{{ "gender" | translate }}</h6>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender"
+                      value="option1" checked />
+                    <label class="form-check-label" for="femaleGender">{{ "female" | translate }}</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender"
+                      value="option2" />
+                    <label class="form-check-label" for="maleGender">{{ "male" | translate }}</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender"
+                      value="option3" />
+                    <label class="form-check-label" for="otherGender">{{ "otherGender" | translate }}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center pb-4">
+                <button class="btn btn-outline-light btn-lg px-5 text-center align-items-center" type="submit">
+                  {{ "register" | translate }}
+                </button> 
+              </div>
+              <div class="text-center">
+                {{ "accountExistsMessages" | translate }}
+                <p class="mb-0">
+                  <a href="#!" class="text-white-50 fw-bold">
+                    {{ "login" | translate }}
+                  </a>
                 </p>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>

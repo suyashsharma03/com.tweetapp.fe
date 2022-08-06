@@ -1,0 +1,21 @@
+{
+    "registration": "registration",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone Number",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "dob": "Date of Birth",
+    "gender": "Gender",
+    "female": "Female",
+    "male": "Male",
+    "otherGender": "Other",
+    "register": "Register",
+    "login": "Login",
+    "loginPageMessage": "Please enter your login and password!",
+    "forgotPass": "Forgot Password",
+    "signUp": "Sign Up",
+    "signUpMessage": "Don't have an account?",
+    "accountExistsMessages": "Already have an account?"
+}
