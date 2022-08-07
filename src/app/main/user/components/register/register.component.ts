@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
 
   public registerForm: FormGroup;
   public securityQuestions: string[] = Constants.securityQuestions;
+  public isInvalid = false;
 
   private userRegistration: UserRegistration;
 
@@ -49,7 +50,7 @@ export class RegisterComponent implements OnInit {
 
   public register(): void {
     if(!this.registerForm.valid) {
-
+      this.isInvalid = true;
     }
     else {
       const valid: boolean = this.comparePassword();
@@ -68,8 +69,15 @@ export class RegisterComponent implements OnInit {
             securityQuestion: this.registerForm?.value?.securityQuestion,
             securityAnswer: this.registerForm?.value?.securityAnswer,
           }
+          this.store.dispatch(new userActions.FetchUserDetails(this.userRegistration));
           console.log(this.userRegistration);
         }
+        else {
+          alert("Gender Value Not Selected");
+        }
+      }
+      else{
+        alert("Password and Confirm Password do not match");
       }
       console.log(this.registerForm);
     }

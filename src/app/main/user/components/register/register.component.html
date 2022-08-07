@@ -78,7 +78,7 @@
                 <div class="form-outline form-white mb-4">
                   <label class="form-label" for="securityQuestion">{{ "securityQuestion" | translate }}</label><br>
                   <select id="securityQuestion" class="height-40 width-540" formControlName="securityQuestion">
-                    <option *ngFor="let question of securityQuestions" [ngValue]="question">{{ question }}</option>
+                    <option *ngFor="let question of securityQuestions; let i = index" [ngValue]="i+1">{{ question }}</option>
                 </select>
                 </div>
               </div>

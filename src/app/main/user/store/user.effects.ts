@@ -66,6 +66,25 @@ export class UserCreateEffects {
         );
     }
 
+    doRegister$ = createEffect(
+        () => {
+            return this.actions$.pipe(
+                ofType(userActions.ActionTypes.fetchUserDetails),
+                switchMap((input: userActions.FetchUserDetails) =>
+                    this.doRegisterSwitchMap(input)
+                )
+            )
+        }
+    );
+
+    private doRegisterSwitchMap(input: userActions.FetchUserDetails) {
+        return this.httpService.postRegister(input.payload).pipe(
+            map(() => {
+                return new userActions.RedirectToLogin();
+            })
+        );
+    }
+
     constructor(
         private readonly actions$: Actions,
         private readonly httpService: UserService,
