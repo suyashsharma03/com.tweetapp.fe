@@ -11,11 +11,15 @@
     "female": "Female",
     "male": "Male",
     "otherGender": "Other",
+    "securityQuestion": "Security Question",
+    "securityAnswer": "Security Answer",
     "register": "Register",
     "login": "Login",
     "loginPageMessage": "Please enter your login and password!",
     "forgotPass": "Forgot Password",
     "signUp": "Sign Up",
     "signUpMessage": "Don't have an account?",
-    "accountExistsMessages": "Already have an account?"
+    "accountExistsMessages": "Already have an account?",
+    "emailRequired": "Email Required",
+    "passwordRequired": "Password Required"
 }

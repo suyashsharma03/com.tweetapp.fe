@@ -7,13 +7,15 @@ import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { LoginComponent } from "./main/login/component/login.component";
-import { LoginService } from "./main/login/service/login.service";
-import { LoginCreateEffects } from "./main/login/store/login.effects";
-import { RegisterComponent } from "./main/register/component/register.component";
+import { LoginComponent } from "./main/user/components/login/login.component";
+import { UserService } from "./main/user/service/user.service";
+import { UserCreateEffects } from "./main/user/store/user.effects";
+import { RegisterComponent } from "./main/user/components/register/register.component";
 import { TweetComponent } from "./main/tweet/component/tweet.component";
 import { HeaderComponent } from './shared/component/header/header.component';
 import * as fromAppStore from "./store/tweetapp.reducer";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { ValidationService } from "./shared/services/validation.service";
 
 export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -31,9 +33,11 @@ export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     StoreModule.forRoot(fromAppStore.tweetAppReducer),
     EffectsModule.forRoot([
-      LoginCreateEffects
+      UserCreateEffects
     ]),
     TranslateModule.forRoot({
       loader: {
@@ -44,7 +48,8 @@ export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
     }),
   ],
   providers: [
-    LoginService,
+    UserService,
+    ValidationService,
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

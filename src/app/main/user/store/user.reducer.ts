@@ -1,5 +1,5 @@
 import { UserDetails, UserLogin } from "../model/login.model";
-import * as loginActions from "./login.action";
+import * as userActions from "./user.action";
 
 export interface State {
     user: UserDetails;
@@ -13,17 +13,17 @@ export const initialState: State = {
 
 export function reducer(
     state: State,
-    action: loginActions.LoginActions
+    action: userActions.UserActions
 ): State {
     if (!state) {
         state = initialState;
     }
     switch(action.type) {
-        case loginActions.ActionTypes.fetchLogin:
+        case userActions.ActionTypes.fetchLogin:
             return { ...state, userLogin: action.payload };
-        case loginActions.ActionTypes.setLogin:
+        case userActions.ActionTypes.setLogin:
             return { ...state, user: action.payload };
-        case loginActions.ActionTypes.resetLogin:
+        case userActions.ActionTypes.resetLogin:
             return Object.assign({}, initialState);
         default:
             return state;

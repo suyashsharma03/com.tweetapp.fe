@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 import { UserLogin } from "../model/login.model";
 
 @Injectable()
-export class LoginService {
+export class UserService {
     basePath: string;
 
     constructor(

@@ -1,5 +1,5 @@
 import { ActionReducerMap } from "@ngrx/store";
-import * as fromLogin from "../main/login/store/login.reducer"
+import * as fromLogin from "../main/user/store/user.reducer"
 
 export interface TweetAppState {
     loginState: fromLogin.State;

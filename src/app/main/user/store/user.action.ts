@@ -6,6 +6,8 @@ export enum ActionTypes {
     setLogin = "SET_LOGIN",
     resetLogin = "RESET_LOGIN",
     redirectToHome = "REDIRECT_TO_HOME",
+    redirectToRegistration = "REDIRECT_TO_REGISTRATION",
+    redirectToLogin = "REDIRECT_TO_LOGIN",
 }
 
 export class FetchLogin implements Action {
@@ -26,7 +28,17 @@ export class RedirectToHome implements Action {
     readonly type = ActionTypes.redirectToHome;
 }
 
-export type LoginActions = 
+export class RedirectToRegistration implements Action {
+    readonly type = ActionTypes.redirectToRegistration;
+}
+
+export class RedirectToLogin implements Action {
+    readonly type = ActionTypes.redirectToLogin;
+}
+
+export type UserActions = 
     | FetchLogin
     | SetLogin
+    | RedirectToRegistration
+    | RedirectToLogin
     | ResetLogin;
