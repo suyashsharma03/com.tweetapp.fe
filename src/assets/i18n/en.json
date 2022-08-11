@@ -21,5 +21,9 @@
     "signUpMessage": "Don't have an account?",
     "accountExistsMessages": "Already have an account?",
     "emailRequired": "Email Required",
-    "passwordRequired": "Password Required"
+    "passwordRequired": "Password Required",
+    "tweet": {
+        "tweetboxPlaceholder": "What's Happening?",
+        "postButton": "Post"
+    }
 }

@@ -1,1 +1,16 @@
-<p>tweet works!</p>
+<div class="container">
+    <div class="tweet-box">
+        <div class="d-flex flex-row">
+            <div class="p-2">
+                <img class="rounded-circle z-depth-2" alt="100x100" [src]="imageSrc" data-holder-rendered="true">
+            </div>
+            <div class="p-2">
+                <textarea 
+                    rows="7" 
+                    cols="120" 
+                    placeholder="{{ 'tweet.tweetboxPlaceholder' | translate }}"></textarea>
+            </div>
+        </div>
+        <button class="btn btn-primary btn-lg float-r">{{ "tweet.postButton" | translate }}</button>
+    </div>
+</div>

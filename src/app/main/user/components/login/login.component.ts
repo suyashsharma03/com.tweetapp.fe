@@ -4,6 +4,7 @@ import { Store } from "@ngrx/store";
 import { ValidationService } from "../../../../shared/services/validation.service";
 import { UserLogin } from "../../model/login.model";
 import * as userActions from "../../store/user.action";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-login",
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private readonly store: Store,
     private readonly formBuilder: FormBuilder,
-    private readonly validationService: ValidationService
+    private readonly validationService: ValidationService,
+    private readonly router: Router
   ) { }
 
   ngOnInit(): void {
@@ -39,18 +41,19 @@ export class LoginComponent implements OnInit {
   }
 
   public login(): void {
-    if(!this.loginForm.valid) {
-      this.isInvalid = true;
-    }
-    else {
-      this.userLogin = {
-        emailId: this.loginForm?.value?.email,
-        password: this.loginForm?.value?.password
-      }
-      this.isInvalid = false;
-      console.log(this.userLogin);
-      this.store.dispatch(new userActions.FetchLogin(this.userLogin));
-    }
+    // if(!this.loginForm.valid) {
+    //   this.isInvalid = true;
+    // }
+    // else {
+    //   this.userLogin = {
+    //     emailId: this.loginForm?.value?.email,
+    //     password: this.loginForm?.value?.password
+    //   }
+    //   this.isInvalid = false;
+    //   console.log(this.userLogin);
+    //   this.store.dispatch(new userActions.FetchLogin(this.userLogin));
+    // }
+    this.router.navigate(["/tweet"]);
   }
 
 }
