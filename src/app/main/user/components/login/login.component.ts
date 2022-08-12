@@ -5,6 +5,7 @@ import { ValidationService } from "../../../../shared/services/validation.servic
 import { UserLogin } from "../../model/login.model";
 import * as userActions from "../../store/user.action";
 import { Router } from "@angular/router";
+import { HeaderComponent } from "../../../../shared/component/header/header.component";
 
 @Component({
   selector: "app-login",
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit {
     private readonly store: Store,
     private readonly formBuilder: FormBuilder,
     private readonly validationService: ValidationService,
-    private readonly router: Router
+    private readonly router: Router,
   ) { }
 
   ngOnInit(): void {
