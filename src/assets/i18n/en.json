@@ -25,5 +25,13 @@
     "tweet": {
         "tweetboxPlaceholder": "What's Happening?",
         "postButton": "Post"
+    },
+    "header": {
+        "brandName": "TweetApp",
+        "search": "Search"
+    },
+    "posts": {
+        "like": "Like",
+        "comment": "Comment"
     }
 }

@@ -1,39 +1,41 @@
 <nav class="navbar navbar-expand-lg sticky-top bg-dark">
-    <div class="container-fluid d-flex justify-content-between">
-      <a class="navbar-brand p-2 margin-r-300" href="#">
-        <img 
-            src="../../../../assets/icons/Twitter-logo.svg" 
-            alt="tweetlogo" width="30" height="24" 
-            class="d-inline-block align-text-top"
-        >
-        <span class="text-light">        
-            TweetApp
-        </span>
-      </a>
-      <div class="collapse navbar-collapse p-2" id="navbarSupportedContent" *ngIf="isLoggedIn">
-        <form class="form-inline my-2 my-lg-0 margin-r-360">
-          <input type="search" class="form-control margin-r-10" placeholder="Search"/>
-          <button type="button" class="btn btn-outline-success my-2 my-sm-0">
-            Search
-          </button>
-        </form>
-        <button type="button" class="btn btn-circle dropdown-toggle">
-          <img src="../../../../assets/icons/user.svg" width="30">
+  <div class="container-fluid d-flex justify-content-between">
+    <a class="navbar-brand p-2 margin-r-300" href="#">
+      <img 
+          src="../../../../assets/icons/Twitter-logo.svg" 
+          alt="tweetlogo" width="30" height="24" 
+          class="d-inline-block align-text-top"
+      >
+      <span class="text-light">        
+          {{ "header.brandName" | translate }}
+      </span>
+    </a>
+    <div class="collapse navbar-collapse p-2" id="navbarSupportedContent" *ngIf="isLoggedIn">
+      <form class="form-inline my-2 my-lg-0 margin-r-360">
+        <input 
+          type="search" 
+          class="form-control margin-r-10"
+          placeholder="{{ 'header.search' | translate }}"
+        />
+        <button type="button" class="btn btn-outline-success my-2 my-sm-0">
+          {{ "header.search" | translate }}
         </button>
+      </form>
+      <button
+        type="button"
+        class="btn btn-circle dropdown-toggle"
+        id="dropdownMenuButton"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <img src="../../../../assets/icons/user.svg" width="30">
+      </button>
+      <div class="dropdown-menu margin-l-1080 bg-dark" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item text-light" href="">Profile</a>
+        <a class="dropdown-item text-light" href="">Change Password</a>
+        <a class="dropdown-item text-light" href="">Logout</a>
       </div>
     </div>
-  </nav>
-
-  <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
-    </div>
-  </nav> -->
+  </div>
+</nav>

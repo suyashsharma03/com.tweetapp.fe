@@ -16,6 +16,8 @@ import { HeaderComponent } from './shared/component/header/header.component';
 import * as fromAppStore from "./store/tweetapp.reducer";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ValidationService } from "./shared/services/validation.service";
+import { PostsComponent } from './main/tweet/component/posts/posts.component';
+import { MatIconModule } from "@angular/material/icon";
 
 export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -27,7 +29,8 @@ export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
     LoginComponent,
     RegisterComponent,
     TweetComponent,
-    HeaderComponent
+    HeaderComponent,
+    PostsComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +49,7 @@ export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
         deps: [HttpClient]
       },
     }),
+    MatIconModule
   ],
   providers: [
     UserService,
