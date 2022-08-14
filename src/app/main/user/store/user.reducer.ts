@@ -1,3 +1,4 @@
+import { Error } from "../../../shared/model/error.model";
 import { UserDetails, UserLogin } from "../model/login.model";
 import { UserRegistration } from "../model/register.model";
 import * as userActions from "./user.action";
@@ -7,13 +8,15 @@ export interface State {
     userLogin: UserLogin;
     userRegistration: UserRegistration;
     email: string;
+    error: Error
 }
 
 export const initialState: State = {
     user: null,
     userLogin: null,
     userRegistration: null,
-    email: null
+    email: null,
+    error: null
 }
 
 export function reducer(
@@ -32,6 +35,8 @@ export function reducer(
             return { ...state, userRegistration: action.payload };
         case userActions.ActionTypes.setUserDetails:
             return { ...state, email: action.email };
+        case userActions.ActionTypes.userError:
+            return { ...state, error: action.payload };
         case userActions.ActionTypes.resetLogin:
             return Object.assign({}, initialState);
         default:

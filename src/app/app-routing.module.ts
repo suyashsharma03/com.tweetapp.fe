@@ -3,11 +3,12 @@ import { RouterModule, Routes } from "@angular/router";
 import { LoginComponent } from "./main/user/components/login/login.component";
 import { RegisterComponent } from "./main/user/components/register/register.component";
 import { TweetComponent } from "./main/tweet/component/tweet.component";
+import { UnauthorizedComponent } from "./shared/component/unauthorized/unauthorized.component";
 
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "/login",
+    redirectTo: "/tweet",
     pathMatch: "full"
   },
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: "tweet",
     component: TweetComponent,
+  },
+  {
+    path: "unauthorized",
+    component: UnauthorizedComponent
   }
 ];
 

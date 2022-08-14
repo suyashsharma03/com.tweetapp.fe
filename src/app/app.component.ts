@@ -21,9 +21,13 @@ export class AppComponent {
   public setLoginStatus(): void {
     if(
       this.location.path().indexOf("login") < 0 &&
-      this.location.path().indexOf("register") < 0
+      this.location.path().indexOf("register") < 0 &&
+      this.location.path().indexOf("unauthorized") < 0
     ){
       this.isLoggedIn = true;
+    }
+    else {
+      this.isLoggedIn = false;
     }
   }
   title = "com-tweetapp";

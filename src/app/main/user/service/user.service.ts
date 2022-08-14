@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { Error } from "../../../shared/model/error.model";
 import { UserDetails, UserLogin } from "../model/login.model";
 import { UserRegistration } from "../model/register.model";
 
@@ -15,9 +16,9 @@ export class UserService {
     }
 
     postLogin(userLogin: UserLogin):
-    Observable<UserLogin> {
+    Observable<UserDetails> {
         const apiUrl = `${this.basePath}/login`;
-        return this.httpClient.post<UserLogin>(apiUrl, userLogin);
+        return this.httpClient.post<UserDetails>(apiUrl, userLogin);
     }
 
     postRegister(userRegistration: UserRegistration):

@@ -6,6 +6,8 @@ import { Constants } from "../../../../shared/constants/constants";
 import { ValidationService } from "../../../../shared/services/validation.service";
 import { UserRegistration } from "../../model/register.model";
 import * as userActions from "../../store/user.action";
+import * as fromApp from "../../../../store/tweetapp.reducer";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
   selector: "app-register",
@@ -30,9 +32,10 @@ export class RegisterComponent implements OnInit {
   public invalidText: string;
 
   private userRegistration: UserRegistration;
+  private destroy = new Subject<void>();
 
   constructor(
-    private readonly store: Store,
+    private readonly store: Store<fromApp.TweetAppState>,
     private readonly formBuilder: FormBuilder,
     private readonly validationService: ValidationService,
     private readonly translateService: TranslateService
@@ -87,6 +90,7 @@ export class RegisterComponent implements OnInit {
                 securityAnswer: this.registerForm?.value?.securityAnswer,
               }
               this.store.dispatch(new userActions.FetchUserDetails(this.userRegistration));
+              this.errorOccurred();
               console.log(this.userRegistration);
             }
             else {
@@ -189,5 +193,17 @@ export class RegisterComponent implements OnInit {
 
   public isValidFalse(): void {
     this.isInvalid = false;
+  }
+
+  private errorOccurred(): void {
+    this.store
+      .select(fromApp.AppStates.userState)
+      .pipe(takeUntil(this.destroy))
+      .subscribe((userState) => { 
+        if(userState.error){
+          this.isInvalid = true;
+          this.invalidText = userState.error.errorMessage;
+        }
+      });
   }
 }

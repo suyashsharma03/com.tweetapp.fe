@@ -18,6 +18,9 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ValidationService } from "./shared/services/validation.service";
 import { PostsComponent } from './main/tweet/component/posts/posts.component';
 import { MatIconModule } from "@angular/material/icon";
+import { UnauthorizedComponent } from './shared/component/unauthorized/unauthorized.component';
+import { TweetCreateEffects } from "./main/tweet/store/tweet.effects";
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -30,7 +33,8 @@ export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
     RegisterComponent,
     TweetComponent,
     HeaderComponent,
-    PostsComponent
+    PostsComponent,
+    UnauthorizedComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +44,8 @@ export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
     ReactiveFormsModule,
     StoreModule.forRoot(fromAppStore.tweetAppReducer),
     EffectsModule.forRoot([
-      UserCreateEffects
+      UserCreateEffects,
+      TweetCreateEffects
     ]),
     TranslateModule.forRoot({
       loader: {
@@ -49,7 +54,8 @@ export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
         deps: [HttpClient]
       },
     }),
-    MatIconModule
+    MatIconModule,
+    FlexLayoutModule
   ],
   providers: [
     UserService,

@@ -1,4 +1,5 @@
 import { Action } from "@ngrx/store";
+import { Error } from "../../../shared/model/error.model";
 import { UserDetails, UserLogin } from "../model/login.model";
 import { UserRegistration } from "../model/register.model";
 
@@ -11,6 +12,7 @@ export enum ActionTypes {
     redirectToLogin = "REDIRECT_TO_LOGIN",
     fetchUserDetails = "FETCH_USER_DETAILS",
     setUserDetails = "SET_USER_DETAILS",
+    userError = "USER_ERROR",
 }
 
 export class FetchLogin implements Action {
@@ -52,6 +54,11 @@ export class SetUserDetails implements Action {
     }
 }
 
+export class UserError implements Action {
+    readonly type = ActionTypes.userError;
+    constructor(public payload: Error) {}
+}
+
 export type UserActions = 
     | FetchLogin
     | SetLogin
@@ -59,4 +66,5 @@ export type UserActions =
     | RedirectToLogin
     | FetchUserDetails
     | SetUserDetails
-    | ResetLogin;
+    | ResetLogin
+    | UserError;

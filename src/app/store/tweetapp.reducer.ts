@@ -1,14 +1,14 @@
 import { ActionReducerMap } from "@ngrx/store";
-import * as fromLogin from "../main/user/store/user.reducer"
+import * as fromUser from "../main/user/store/user.reducer"
 
 export interface TweetAppState {
-    loginState: fromLogin.State;
+    userState: fromUser.State;
 }
 
 export const tweetAppReducer: ActionReducerMap<TweetAppState> = {
-    loginState: fromLogin.reducer,
+    userState: fromUser.reducer,
 };
 
 export const enum AppStates {
-    loginState = "loginState",
+    userState = "userState",
 }

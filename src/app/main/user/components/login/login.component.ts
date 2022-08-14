@@ -1,35 +1,45 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
+import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { ValidationService } from "../../../../shared/services/validation.service";
 import { UserLogin } from "../../model/login.model";
 import * as userActions from "../../store/user.action";
-import { Router } from "@angular/router";
-import { HeaderComponent } from "../../../../shared/component/header/header.component";
+import * as fromApp from "../../../../store/tweetapp.reducer";
+import { Subject, takeUntil } from "rxjs";
+import { StringMapWithRename } from "@angular/compiler/src/compiler_facade_interface";
 
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   public loginForm: FormGroup;
   public isInvalid = false;
   public isEmailInvalid = false;
   public isPasswordInvalid = false;
+  public errorFromApi = false;
+  public errorMessage: string;
 
   private userLogin: UserLogin;
+  private destroy = new Subject<void>();
 
   constructor(
-    private readonly store: Store,
+    private readonly store: Store<fromApp.TweetAppState>,
     private readonly formBuilder: FormBuilder,
     private readonly validationService: ValidationService,
-    private readonly router: Router,
   ) { }
 
   ngOnInit(): void {
     this.initializeLoginForm();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy.next();
+    this.destroy.complete();
+    this.clearStorage();
   }
 
   private initializeLoginForm(): void {
@@ -56,8 +66,16 @@ export class LoginComponent implements OnInit {
       this.isInvalid = false;
       console.log(this.userLogin);
       this.store.dispatch(new userActions.FetchLogin(this.userLogin));
+      this.store
+      .select(fromApp.AppStates.userState)
+      .pipe(takeUntil(this.destroy))
+      .subscribe((userState) => { 
+        if(userState.error){
+          this.errorFromApi = true;
+          this.errorMessage = userState.error.errorMessage;
+        }
+      });
     }
-    //this.router.navigate(["/tweet"]);
   }
 
   private checkEmptyControl(): void {
@@ -69,4 +87,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  private clearStorage(): void {
+    localStorage.clear();
+    sessionStorage.clear();
+  }
 }

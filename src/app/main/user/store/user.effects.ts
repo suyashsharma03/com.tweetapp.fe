@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { Observable, switchMap } from "rxjs";
-import { map, tap } from "rxjs/operators";
+import { Observable, of, switchMap } from "rxjs";
+import { catchError, map, tap } from "rxjs/operators";
 import { Constants } from "../../../shared/constants/constants";
+import { UserDetails } from "../model/login.model";
 import { UserService } from "../service/user.service";
 import * as userActions from "./user.action";
 
@@ -13,7 +14,7 @@ export class UserCreateEffects {
     redirectToHome$ = createEffect(
         () => {
             return this.actions$.pipe(
-                ofType(userActions.ActionTypes.redirectToHome),
+                ofType(userActions.ActionTypes.setLogin),
                 tap(() => {
                     this.router.navigate([Constants.homePage]);
                 })
@@ -27,7 +28,7 @@ export class UserCreateEffects {
             return this.actions$.pipe(
                 ofType(userActions.ActionTypes.redirectToRegistration),
                 tap(() => {
-                    this.router.navigate([Constants.registerationPage]);
+                    this.router.navigate([Constants.registrationPage]);
                 })
             );
         },
@@ -57,12 +58,16 @@ export class UserCreateEffects {
         }
     );
 
-    private doLoginSwitchMap(input : userActions.FetchLogin): 
-    Observable<userActions.RedirectToHome> {
-        return this.httpService.postLogin(input.payload).pipe(
-            map(() => {
-                return new userActions.RedirectToHome();
-            })
+    private doLoginSwitchMap(input : userActions.FetchLogin):
+    Observable<userActions.SetLogin | userActions.UserError>
+    {
+        return this.httpService
+        .postLogin(input.payload)
+        .pipe(
+            map((resData: UserDetails) => {
+                return new userActions.SetLogin(resData);
+            }),
+            catchError((error) => this.setErrorMessage(error))
         );
     }
 
@@ -77,12 +82,21 @@ export class UserCreateEffects {
         }
     );
 
-    private doRegisterSwitchMap(input: userActions.FetchUserDetails) {
+    private doRegisterSwitchMap(input: userActions.FetchUserDetails):
+    Observable<userActions.UserError | userActions.RedirectToLogin> {
         return this.httpService.postRegister(input.payload).pipe(
             map(() => {
                 return new userActions.RedirectToLogin();
-            })
+            }),
+            catchError((error) => this.setErrorMessage(error))
         );
+    }
+
+    private setErrorMessage(error): Observable<userActions.UserError> {
+        console.log(error);
+        return of(new userActions.UserError({
+            errorMessage: error.error.errorMessage
+        }));
     }
 
     constructor(

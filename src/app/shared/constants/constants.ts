@@ -11,7 +11,8 @@ export class Constants {
     ]
 
     //routes
-    public static registerationPage = "/register";
-    public static homePage = "/home";
-    public static loginPage = "/";
+    public static registrationPage = "/register";
+    public static homePage = "/tweet";
+    public static loginPage = "/login";
+    public static unauthorized = "/unauthorized";
 }
