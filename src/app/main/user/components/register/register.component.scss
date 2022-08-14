@@ -24,3 +24,27 @@ a {
 .width-540 {
     width: 33.75rem;
 }
+
+.required {
+    content: "*";
+    color: #c91432;
+}
+
+.input-invalid {
+    border-color: #c91432;
+    color: #c91432;
+}
+
+.invalid-text {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    font-weight: 400;
+    flex-basis: 100%;
+    font-family: "Source Sans Pro", arial, sans-serif;
+    color: #c91432;
+}
+
+.hidden {
+    display: none;
+}

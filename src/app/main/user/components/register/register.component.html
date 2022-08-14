@@ -1,3 +1,9 @@
+<div class="alert alert-danger sticky-top" role="alert" *ngIf="isInvalid">
+  {{ invalidText }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="isValidFalse()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
 <section class="height-100 gradient-custom">
   <div class="container py-5 h-100">
     <div class="row justify-content-center align-items-center h-100">
@@ -10,13 +16,33 @@
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="firstName">{{ "firstName" | translate }}</label>
-                    <input type="text" id="firstName" class="form-control form-control-lg" formControlName="firstName"/>
+                    <span class="required">*</span>
+                    <input
+                      type="text"
+                      id="firstName"
+                      [ngClass]="isFirstNameEmpty ? 'form-control form-control-lg input-invalid' : 'form-control form-control-lg'"
+                      formControlName="firstName"
+                      (focus)="isFirstNameEmpty=removeInvalid()"
+                    />
+                    <div [ngClass]="isFirstNameEmpty ? 'invalid-text' : 'hidden'">
+                      {{ "registers.required.firstName" | translate }}
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="lastName">{{ "lastName" | translate }}</label>
-                    <input type="text" id="lastName" class="form-control form-control-lg" formControlName="lastName"/>
+                    <span class="required">*</span>
+                    <input
+                      type="text"
+                      id="lastName"
+                      [ngClass]="isLastNameEmpty ? 'form-control form-control-lg input-invalid' : 'form-control form-control-lg'"
+                      formControlName="lastName"
+                      (focus)="isLastNameEmpty=removeInvalid()"
+                    />
+                    <div [ngClass]="isLastNameEmpty ? 'invalid-text' : 'hidden'">
+                      {{ "registers.required.lastName" | translate }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -24,13 +50,49 @@
                 <div class="col-md-6 mb-4 d-flex align-items-center">
                   <div class="form-outline form-white mb-4">
                     <label class="form-label" for="email">{{ "email" | translate }}</label>
-                    <input type="email" id="email" class="form-control form-control-lg" formControlName="email"/>
+                    <span class="required">*</span>
+                    <input
+                      type="email"
+                      id="email"
+                      [ngClass]="
+                        isEmailEmpty || isEmailFormatWrong ? 
+                          'form-control form-control-lg input-invalid' : 
+                          'form-control form-control-lg'
+                      "
+                      formControlName="email"
+                      (focus)="isEmailEmpty=removeInvalid(); isEmailFormatWrong=removeInvalid()"
+                    />
+                    <div [ngClass]="isEmailEmpty ? 'invalid-text' : 'hidden'">
+                      {{ "registers.required.email" | translate }}
+                    </div>
+                    <div [ngClass]="isEmailFormatWrong ? 'invalid-text' : 'hidden'">
+                      {{ "registers.required.emailFormat" | translate }}
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="phoneNumber">{{ "phone" | translate }}</label>
-                    <input type="tel" id="phoneNumber" class="form-control form-control-lg" formControlName="phone"/>
+                    <span class="required">*</span>
+                    <input
+                      type="text"
+                      id="phoneNumber"
+                      [ngClass]="
+                        isPhoneEmpty || isPhoneFormatWrong ? 
+                          'form-control form-control-lg input-invalid' : 
+                          'form-control form-control-lg'
+                      "
+                      formControlName="phone"
+                      (focus)="isPhoneEmpty=removeInvalid(); isPhoneFormatWrong=removeInvalid()"
+                      required=""
+                      maxlength="10"
+                    />
+                    <div [ngClass]="isPhoneEmpty ? 'invalid-text' : 'hidden'">
+                      {{ "registers.required.phone" | translate }}
+                    </div>
+                    <div [ngClass]="isPhoneFormatWrong ? 'invalid-text' : 'hidden'">
+                      {{ "registers.required.phoneFormat" | translate }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -38,13 +100,33 @@
                 <div class="col-md-6 mb-4">
                   <div class="form-outline form-white mb-4">
                     <label class="form-label" for="typePasswordX">{{ "password" | translate }}</label>
-                    <input type="password" id="typePasswordX" class="form-control form-control-lg" formControlName="password"/>
+                    <span class="required">*</span>
+                    <input
+                      type="password"
+                      id="typePasswordX"
+                      [ngClass]="isPasswordEmpty ? 'form-control form-control-lg input-invalid' : 'form-control form-control-lg'"
+                      formControlName="password"
+                      (focus)="isPasswordEmpty=removeInvalid()"
+                    />
+                    <div [ngClass]="isPasswordEmpty ? 'invalid-text' : 'hidden'">
+                      {{ "passwordRequired" | translate }}
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6 mb-4">
                   <div class="form-outline form-white mb-4">
                     <label class="form-label" for="typeConfirmPasswordX">{{ "confirmPassword" | translate }}</label>
-                    <input type="password" id="typeConfirmPasswordX" class="form-control form-control-lg" formControlName="confirmPassword"/>
+                    <span class="required">*</span>
+                    <input
+                      type="password"
+                      id="typeConfirmPasswordX"
+                      [ngClass]="isConfPasswordEmpty ? 'form-control form-control-lg input-invalid' : 'form-control form-control-lg'"
+                      formControlName="confirmPassword"
+                      (focus)="isConfPasswordEmpty=removeInvalid()"
+                    />
+                    <div [ngClass]="isConfPasswordEmpty ? 'invalid-text' : 'hidden'">
+                      {{ "registers.required.confPassword" | translate }}
+                    </div>
                 </div>
                 </div>
               </div>
@@ -52,7 +134,17 @@
                 <div class="col-md-6 mb-4">
                   <div class="form-outline form-white mb-4">
                     <label class="form-label" for="typeDateOfBirthX">{{ "dob" | translate }}</label>
-                    <input type="date" id="typeDateOfBirthX" class="form-control form-control-lg" formControlName="dob"/>
+                    <span class="required">*</span>
+                    <input
+                      type="date"
+                      id="typeDateOfBirthX"
+                      [ngClass]="isDobEmpty ? 'form-control form-control-lg input-invalid' : 'form-control form-control-lg'"
+                      formControlName="dob"
+                      (focus)="isDobEmpty=removeInvalid()"
+                    />
+                    <div [ngClass]="isDobEmpty ? 'invalid-text' : 'hidden'">
+                      {{ "registers.required.dob" | translate }}
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6 mb-4">
@@ -78,18 +170,38 @@
                 <div class="form-outline form-white mb-4">
                   <label class="form-label" for="securityQuestion">{{ "securityQuestion" | translate }}</label><br>
                   <select id="securityQuestion" class="height-40 width-540" formControlName="securityQuestion">
-                    <option *ngFor="let question of securityQuestions; let i = index" [ngValue]="i+1">{{ question }}</option>
+                    <option
+                      *ngFor="let question of securityQuestions; let i = index"
+                      [ngValue]="i+1"
+                      [selected]="1"
+                    >
+                      {{ question }}
+                    </option>
                 </select>
                 </div>
               </div>
               <div class="row">
                 <div class="form-outline form-white mb-4">
                   <label class="form-label" for="securityAnswer">{{ "securityAnswer" | translate }}</label>
-                  <input type="securityAnswer" id="securityAnswer" class="form-control form-control-lg" formControlName="securityAnswer"/>
+                  <span class="required">*</span>
+                  <input
+                    type="securityAnswer"
+                    id="securityAnswer"
+                    [ngClass]="isSecurityAnswerEmpty ? 'form-control form-control-lg input-invalid' : 'form-control form-control-lg'"
+                    formControlName="securityAnswer"
+                    (focus)="isSecurityAnswerEmpty=removeInvalid()"
+                  />
+                  <div [ngClass]="isSecurityAnswerEmpty ? 'invalid-text' : 'hidden'">
+                    {{ "registers.required.dob" | translate }}
+                  </div>
                 </div>
               </div>
               <div class="text-center pb-4">
-                <button class="btn btn-outline-light btn-lg px-5 text-center align-items-center" type="submit" (click)="register()">
+                <button
+                  class="btn btn-outline-light btn-lg px-5 text-center align-items-center"
+                  type="submit"
+                  (click)="register()"
+                >
                   {{ "register" | translate }}
                 </button> 
               </div>

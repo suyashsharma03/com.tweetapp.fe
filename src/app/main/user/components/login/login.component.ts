@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
 
   public loginForm: FormGroup;
   public isInvalid = false;
+  public isEmailInvalid = false;
+  public isPasswordInvalid = false;
 
   private userLogin: UserLogin;
 
@@ -42,19 +44,29 @@ export class LoginComponent implements OnInit {
   }
 
   public login(): void {
-    // if(!this.loginForm.valid) {
-    //   this.isInvalid = true;
-    // }
-    // else {
-    //   this.userLogin = {
-    //     emailId: this.loginForm?.value?.email,
-    //     password: this.loginForm?.value?.password
-    //   }
-    //   this.isInvalid = false;
-    //   console.log(this.userLogin);
-    //   this.store.dispatch(new userActions.FetchLogin(this.userLogin));
-    // }
-    this.router.navigate(["/tweet"]);
+    if(!this.loginForm.valid) {
+      this.isInvalid = true;
+      this.checkEmptyControl();
+    }
+    else {
+      this.userLogin = {
+        emailId: this.loginForm?.value?.email,
+        password: this.loginForm?.value?.password
+      }
+      this.isInvalid = false;
+      console.log(this.userLogin);
+      this.store.dispatch(new userActions.FetchLogin(this.userLogin));
+    }
+    //this.router.navigate(["/tweet"]);
+  }
+
+  private checkEmptyControl(): void {
+    if(!this.loginForm?.value?.email) {
+      this.isEmailInvalid = true;
+    }
+    if(!this.loginForm?.value?.password) {
+      this.isPasswordInvalid = true;
+    }
   }
 
 }

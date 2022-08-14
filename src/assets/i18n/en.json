@@ -33,5 +33,26 @@
     "posts": {
         "like": "Like",
         "comment": "Comment"
+    },
+    "registers": {
+        "generalInvalidMessage": "Something went Wrong!!!",
+        "passwordDoNotMatch": "Passwords Do Not Match",
+        "noGenderValue": "Gender Value Not Selected",
+        "emailFormatWrong": "Email Format is Wrong, it should be xxxx@yyy.zzz",
+        "phoneFormatWrong": "Phone Number Format is Wrong, it should be number, max digit 10",
+        "required": {
+            "firstName": "First Name is required",
+            "lastName": "Last Name is required",
+            "email": "Email is required",
+            "emailFormat": "Email format is wrong",
+            "phone": "Phone Number is required",
+            "phoneFormat": "Phone Number format is wrong",
+            "confPassword": "Confirm Password is required",
+            "dob": "Date Of Birth is required",
+            "securityAnswer": "Security Answer is required"
+        }
+    },
+    "loginSection": {
+        "invalidCred": "Invalid Credentials"
     }
 }
