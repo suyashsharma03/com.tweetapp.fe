@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loginForm = this.formBuilder.group({
       email: ["", this.validationService.requiredField],
       password: ["", this.validationService.requiredField]
-    })
+    });
   }
 
   public goToRegister(): void {
@@ -64,7 +64,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         password: this.loginForm?.value?.password
       }
       this.isInvalid = false;
-      console.log(this.userLogin);
       this.store.dispatch(new userActions.FetchLogin(this.userLogin));
       this.store
       .select(fromApp.AppStates.userState)

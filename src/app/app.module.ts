@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { EffectsModule } from "@ngrx/effects";
@@ -21,6 +21,8 @@ import { MatIconModule } from "@angular/material/icon";
 import { UnauthorizedComponent } from './shared/component/unauthorized/unauthorized.component';
 import { TweetCreateEffects } from "./main/tweet/store/tweet.effects";
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { TweetService } from "./main/tweet/service/tweet.service";
+import { AuthInterceptor } from "./shared/interceptor/AuthInterceptor";
 
 export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -59,7 +61,9 @@ export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
   ],
   providers: [
     UserService,
+    TweetService,
     ValidationService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

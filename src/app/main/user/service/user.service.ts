@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Error } from "../../../shared/model/error.model";
 import { UserDetails, UserLogin } from "../model/login.model";
 import { UserRegistration } from "../model/register.model";
 

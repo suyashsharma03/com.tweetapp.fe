@@ -24,7 +24,8 @@
     "passwordRequired": "Password Required",
     "tweet": {
         "tweetboxPlaceholder": "What's Happening?",
-        "postButton": "Post"
+        "postButton": "Post",
+        "postedSuccessful": "Your post has been submitted successfully"
     },
     "header": {
         "brandName": "TweetApp",
