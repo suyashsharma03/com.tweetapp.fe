@@ -22,7 +22,8 @@ export class AppComponent {
     if(
       this.location.path().indexOf("login") < 0 &&
       this.location.path().indexOf("register") < 0 &&
-      this.location.path().indexOf("unauthorized") < 0
+      this.location.path().indexOf("unauthorized") < 0 &&
+      this.location.path().indexOf("forgotpassword") < 0
     ){
       this.isLoggedIn = true;
     }

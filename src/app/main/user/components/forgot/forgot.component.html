@@ -1,0 +1,103 @@
+<div class="alert alert-danger sticky-top" role="alert" *ngIf="invalid">
+  {{ errorMessage }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="isValidFalse()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="alert alert-success sticky-top" role="alert" *ngIf="isSuccess">
+  {{ successMessage }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="isValidFalse()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+  <section class="height-100 gradient-custom">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card bg-dark text-white" style="border-radius: 1rem;">
+              <div class="card-body p-5 text-center">
+                <div class="mb-md-5 mt-md-4 pb-5">
+                  <h2 class="fw-bold mb-2 text-uppercase">{{ "forgotPass" | translate }}</h2>
+                  <p class="text-white-50 mb-5"></p>
+                  <form [formGroup]="forgetPassForm">
+                    <div class="form-outline form-white mb-4">
+                        <label class="form-label" for="typeEmailX">
+                          {{ "email" | translate }}
+                        </label>
+                        <span class="required">*</span>
+                        <input 
+                          type="email" 
+                          id="typeEmailX"                         
+                          [ngClass]="
+                            isEmailInvalid || isEmailFormatWrong ? 
+                            'form-control form-control-lg input-invalid' : 
+                            'form-control form-control-lg'
+                          "
+                          required 
+                          formControlName="email"
+                          (focus)="isEmailInvalid=false;isEmailFormatWrong=false"
+                        />
+                          <div [ngClass]="isEmailInvalid ? 'invalid-text' : 'hidden'">
+                            {{ "emailRequired" | translate }}
+                          </div>
+                          <div [ngClass]="isEmailFormatWrong ? 'invalid-text' : 'hidden'">
+                            {{ "registers.required.emailFormat" | translate }}
+                          </div>
+                    </div>
+                    <div class="form-outline form-white mb-4">
+                        <label class="form-label control-label" for="oldPassword">
+                          {{ "oldPassword" | translate }}
+                        </label>
+                        <span class="required">*</span>
+                        <input 
+                          type="password"
+                          id="oldPassword"                      
+                          [ngClass]="isOldPasswordInvalid ? 'form-control form-control-lg input-invalid' : 'form-control form-control-lg'"
+                          required 
+                          formControlName="oldPassword"
+                          (focus)="isOldPasswordInvalid=false"
+                          />
+                          <div [ngClass]="isOldPasswordInvalid ? 'invalid-text' : 'hidden'">
+                            {{ "passwordRequired" | translate }}
+                          </div>
+                    </div>
+                    <div class="form-outline form-white mb-4">
+                        <label class="form-label control-label" for="newPassword">
+                          {{ "newPassword" | translate }}
+                        </label>
+                        <span class="required">*</span>
+                        <input 
+                          type="password"
+                          id="newPassword"                      
+                          [ngClass]="
+                            isNewPasswordInvalid || isPasswordLength ? 
+                            'form-control form-control-lg input-invalid' : 
+                            'form-control form-control-lg'
+                          "
+                          required 
+                          formControlName="newPassword"
+                          (focus)="isNewPasswordInvalid=false;isPasswordLength=false"
+                          />
+                          <div [ngClass]="isNewPasswordInvalid ? 'invalid-text' : 'hidden'">
+                            {{ "passwordRequired" | translate }}
+                          </div>
+                          <div [ngClass]="isPasswordLength ? 'invalid-text' : 'hidden'">
+                            {{ "forgotPassword.passwordLength" | translate }}
+                          </div>
+                    </div>
+                    <p class="small mb-5 pb-lg-2">
+                      <a class="text-white-50" (click)="goToLogin()">
+                        {{ "login" | translate }}
+                      </a>
+                    </p>
+                    <button class="btn btn-outline-light btn-lg px-5" type="submit" (click)="resetPass()">
+                      {{ "resetPassword" | translate }}
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>

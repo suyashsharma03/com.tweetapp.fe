@@ -25,6 +25,8 @@ import { TweetService } from "./main/tweets/service/tweet.service";
 import { AuthInterceptor } from "./shared/interceptor/AuthInterceptor";
 import { ProfileComponent } from './main/user/components/profile/profile.component';
 import { SubscribersComponent } from './main/tweets/component/subscribers/subscribers.component';
+import { FooterComponent } from './shared/component/footer/footer.component';
+import { ForgotComponent } from './main/user/components/forgot/forgot.component';
 
 export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -40,7 +42,9 @@ export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
     PostsComponent,
     UnauthorizedComponent,
     ProfileComponent,
-    SubscribersComponent
+    SubscribersComponent,
+    FooterComponent,
+    ForgotComponent
   ],
   imports: [
     BrowserModule,

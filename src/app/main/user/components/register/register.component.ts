@@ -29,6 +29,7 @@ export class RegisterComponent implements OnInit {
   public isSecurityAnswerEmpty = false;
   public isEmailFormatWrong = false;
   public isPhoneFormatWrong = false;
+  public isPasswordLength = false;
   public invalidText: string;
 
   private userRegistration: UserRegistration;
@@ -71,48 +72,52 @@ export class RegisterComponent implements OnInit {
       this.invalidText = this.translateService.instant("registers.generalInvalidMessage") as string;
     }
     else {
-      const valid: boolean = this.comparePassword();
-      if(valid) {
-        if(this.checkEmailFormat()) {
-          if(this.checkPhoneFormat()) {
-            const genderValue: string = this.getGender();
-            if(genderValue) {
-              this.userRegistration = {
-                firstName: this.registerForm?.value?.firstName,
-                lastName: this.registerForm?.value?.lastName,
-                emailId: this.registerForm?.value?.email,
-                phone: this.registerForm?.value?.phone,
-                password: this.registerForm?.value?.password,
-                confirmPassword: this.registerForm?.value?.confirmPassword,
-                dateofbirth: this.registerForm?.value?.dob,
-                gender: genderValue,
-                securityQuestion: this.registerForm?.value?.securityQuestion,
-                securityAnswer: this.registerForm?.value?.securityAnswer,
+      if(this.checkPasswordLength){
+        const valid: boolean = this.comparePassword();
+        if(valid) {
+          if(this.checkEmailFormat()) {
+            if(this.checkPhoneFormat()) {
+              const genderValue: string = this.getGender();
+              if(genderValue) {
+                this.userRegistration = {
+                  firstName: this.registerForm?.value?.firstName,
+                  lastName: this.registerForm?.value?.lastName,
+                  emailId: this.registerForm?.value?.email,
+                  phone: this.registerForm?.value?.phone,
+                  password: this.registerForm?.value?.password,
+                  confirmPassword: this.registerForm?.value?.confirmPassword,
+                  dateofbirth: this.registerForm?.value?.dob,
+                  gender: genderValue,
+                  securityQuestion: this.registerForm?.value?.securityQuestion,
+                  securityAnswer: this.registerForm?.value?.securityAnswer,
+                }
+                this.store.dispatch(new userActions.FetchUserDetails(this.userRegistration));
+                this.errorOccurred();
               }
-              this.store.dispatch(new userActions.FetchUserDetails(this.userRegistration));
-              this.errorOccurred();
-              console.log(this.userRegistration);
+              else {
+                this.invalidText = this.translateService.instant("registers.noGenderValue") as string;
+                this.isInvalid = true;
+              }
             }
             else {
-              this.invalidText = this.translateService.instant("registers.noGenderValue") as string;
+              this.invalidText = this.translateService.instant("registers.phoneFormatWrong") as string;
               this.isInvalid = true;
             }
           }
           else {
-            this.invalidText = this.translateService.instant("registers.phoneFormatWrong") as string;
+            this.invalidText = this.translateService.instant("registers.emailFormatWrong") as string;
             this.isInvalid = true;
           }
         }
         else {
-          this.invalidText = this.translateService.instant("registers.emailFormatWrong") as string;
+          this.invalidText = this.translateService.instant("registers.passwordDoNotMatch") as string;
           this.isInvalid = true;
         }
       }
-      else{
-        this.invalidText = this.translateService.instant("registers.passwordDoNotMatch") as string;
+      else {
+        this.invalidText = this.translateService.instant("forgotPassword.passwordLength") as string;
         this.isInvalid = true;
       }
-      console.log(this.registerForm);
     }
   }
 
@@ -185,6 +190,19 @@ export class RegisterComponent implements OnInit {
       this.isPhoneFormatWrong = true;
       return false;
     }
+  }
+
+  private checkPasswordLength(): boolean {
+    if(
+      this.registerForm?.value?.password?.length < 6 || 
+      this.registerForm?.value?.password?.length > 20
+    ) {
+      this.isInvalid = true;
+      this.isPasswordLength = true;
+      return false;
+    }
+    this.isInvalid = false;
+    return true;
   }
 
   public removeInvalid(): boolean {

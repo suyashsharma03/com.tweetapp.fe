@@ -50,7 +50,7 @@
                           {{ "passwordRequired" | translate }}
                         </div>
                   </div>
-                  <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">{{ "forgotPass" | translate }}</a></p>
+                  <p class="small mb-5 pb-lg-2"><a class="text-white-50" (click)="goToForgotPass()">{{ "forgotPass" | translate }}</a></p>
                   <button class="btn btn-outline-light btn-lg px-5" type="submit" (click)="login()">
                     {{ "login" | translate }}
                   </button>

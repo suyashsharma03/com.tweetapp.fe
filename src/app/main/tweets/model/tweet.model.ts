@@ -21,3 +21,7 @@ export interface ReplyTweet {
     firstName: string;
     lastName: string;
 }
+
+export interface ReplyText {
+    tweetText: string;
+}

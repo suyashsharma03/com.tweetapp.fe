@@ -5,6 +5,7 @@ import { RegisterComponent } from "./main/user/components/register/register.comp
 import { TweetComponent } from "./main/tweets/component/tweet/tweet.component";
 import { UnauthorizedComponent } from "./shared/component/unauthorized/unauthorized.component";
 import { SubscribersComponent } from "./main/tweets/component/subscribers/subscribers.component";
+import { ForgotComponent } from "./main/user/components/forgot/forgot.component";
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: "subscriber",
     component: SubscribersComponent
+  },
+  {
+    path: "forgotpassword",
+    component: ForgotComponent
   }
 ];
 

@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Observable, of, switchMap } from "rxjs";
 import { catchError, map, tap } from "rxjs/operators";
+import { Successful } from "src/app/shared/model/success.model";
 import { Constants } from "../../../shared/constants/constants";
 import { UserDetails } from "../model/login.model";
 import { UserService } from "../service/user.service";
@@ -41,6 +42,18 @@ export class UserCreateEffects {
                 ofType(userActions.ActionTypes.redirectToLogin),
                 tap(() => {
                     this.router.navigate([Constants.loginPage]);
+                })
+            );
+        },
+        {dispatch: false}
+    );
+
+    redirectToForgotPassword$ = createEffect(
+        () => {
+            return this.actions$.pipe(
+                ofType(userActions.ActionTypes.redirectToForgotPassword),
+                tap(() => {
+                    this.router.navigate([Constants.forgotPassword]);
                 })
             );
         },
@@ -108,6 +121,26 @@ export class UserCreateEffects {
         return this.httpService.getAllUser().pipe(
             map((resData: UserDetails[]) => {
                 return new userActions.SetUsers(resData);
+            }),
+            catchError((error) => this.setErrorMessage(error))
+        );
+    }
+
+    forgotPaswword$ = createEffect(
+        () => {
+            return this.actions$.pipe(
+                ofType(userActions.ActionTypes.forgotPassword),
+                switchMap((input: userActions.ForgetPassword) =>
+                    this.forgotPasswordSwitchMap(input)
+                )
+            )
+        }
+    );
+
+    private forgotPasswordSwitchMap(input: userActions.ForgetPassword) {
+        return this.httpService.forgotPassword(input.userId, input.payload).pipe(
+            map((resData: Successful) => {
+                return new userActions.UserSuccess(resData);
             }),
             catchError((error) => this.setErrorMessage(error))
         );

@@ -5,6 +5,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { UserDetails } from 'src/app/main/user/model/login.model';
 import * as fromApp from "../../../../store/tweetapp.reducer";
 import * as tweetActions from "../../store/tweet.action";
+import * as userActions from "../../../user/store/user.action";
 
 @Component({
   selector: 'app-subscribers',
@@ -44,12 +45,17 @@ export class SubscribersComponent implements OnInit, OnDestroy {
       .select(fromApp.AppStates.tweetState)
       .pipe(takeUntil(this.destroy))
       .subscribe((tweetState) => {
-        this.user = tweetState.user;
-        this.name = tweetState?.user?.firstName + " " + tweetState?.user?.lastName;
-        this.userName = tweetState?.user?.emailId;
-        this.gender = tweetState?.user?.gender;
-        this.birthDate = tweetState?.user?.dateOfBirth?.toLocaleString();
-        console.log(this.birthDate);
+        if(tweetState && tweetState.user) {
+          this.user = tweetState.user;
+          this.name = tweetState?.user?.firstName + " " + tweetState?.user?.lastName;
+          this.userName = tweetState?.user?.emailId;
+          this.gender = tweetState?.user?.gender;
+          this.birthDate = tweetState?.user?.dateOfBirth?.toLocaleString();
+        }
+        else {
+          this.store.dispatch(new userActions.RedirectToLogin());
+          this.clearStorage();
+        }
       }
     );
   }
@@ -65,4 +71,8 @@ export class SubscribersComponent implements OnInit, OnDestroy {
     this.location.back();
   }
 
+  private clearStorage(): void {
+    localStorage.clear();
+    sessionStorage.clear();
+  }
 }

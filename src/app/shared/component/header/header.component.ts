@@ -1,4 +1,3 @@
-import { Location } from "@angular/common";
 import { Component, Input, OnInit } from "@angular/core";
 
 @Component({
@@ -6,14 +5,9 @@ import { Component, Input, OnInit } from "@angular/core";
   templateUrl: "./header.component.html",
   styleUrls: ["./header.component.scss"]
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   @Input() isLoggedIn: boolean = false;
 
-  constructor(
-    private readonly location: Location
-  ) {}
-
-  ngOnInit(): void {
-  }
+  constructor() {}
 }

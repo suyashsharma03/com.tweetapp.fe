@@ -22,6 +22,9 @@
     "accountExistsMessages": "Already have an account?",
     "emailRequired": "Email Required",
     "passwordRequired": "Password Required",
+    "oldPassword": "Old Password",
+    "newPassword": "New Password",
+    "resetPassword": "Reset Password",
     "tweet": {
         "tweetboxPlaceholder": "What's Happening?",
         "postButton": "Post",
@@ -29,7 +32,12 @@
     },
     "header": {
         "brandName": "TweetApp",
-        "search": "Search"
+        "search": "Search",
+        "headerUserList":{
+            "profile": "Profile",
+            "passwordChange": "Change Password",
+            "logout": "Logout"
+        }
     },
     "posts": {
         "like": "Like",
@@ -55,5 +63,14 @@
     },
     "loginSection": {
         "invalidCred": "Invalid Credentials"
+    },
+    "footer": {
+        "copyrightedText": "© 2022 Copyright:",
+        "developedByText": "Developed By: ",
+        "author": "Suyash Sharma"
+    },
+    "forgotPassword": {
+        "passwordLength": "Password Length should be greater than 6 and less than 20",
+        "passwordChanged": "Password Changed Successfully!!!"
     }
 }

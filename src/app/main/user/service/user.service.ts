@@ -1,7 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { UserDetails, UserLogin } from "../model/login.model";
+import { Successful } from "src/app/shared/model/success.model";
+import { ResetPassword, ForgotPassword, UserDetails, UserLogin } from "../model/login.model";
 import { UserRegistration } from "../model/register.model";
 
 @Injectable()
@@ -34,5 +35,16 @@ export class UserService {
     getAllUser(): Observable<UserDetails[]> {
         const apiUrl = `${this.basePath}/users/all`;
         return this.httpClient.get<UserDetails[]>(apiUrl);
+    }
+
+    forgotPassword(userId: string, forgot: ForgotPassword):
+    Observable<Successful> {
+        const apiUrl = `${this.basePath}/resetPassword/${userId}`;
+        return this.httpClient.put<Successful>(apiUrl, forgot);
+    }
+
+    resetPassword(resetPassword: ResetPassword): Observable<Successful> {
+        const apiUrl = `${this.basePath}/forgot`;
+        return this.httpClient.put<Successful>(apiUrl, resetPassword);
     }
 }

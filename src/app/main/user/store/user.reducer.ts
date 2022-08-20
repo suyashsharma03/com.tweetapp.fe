@@ -1,3 +1,4 @@
+import { Successful } from "src/app/shared/model/success.model";
 import { Error } from "../../../shared/model/error.model";
 import { UserDetails, UserLogin } from "../model/login.model";
 import { UserRegistration } from "../model/register.model";
@@ -9,7 +10,8 @@ export interface State {
     userRegistration: UserRegistration;
     email: string;
     error: Error,
-    allUsers: UserDetails[]
+    success: Successful,
+    allUsers: UserDetails[],
 }
 
 export const initialState: State = {
@@ -18,6 +20,7 @@ export const initialState: State = {
     userRegistration: null,
     email: null,
     error: null,
+    success: null,
     allUsers: null,
 }
 
@@ -41,6 +44,8 @@ export function reducer(
             return { ...state, allUsers: action.payload };
         case userActions.ActionTypes.userError:
             return { ...state, error: action.payload };
+        case userActions.ActionTypes.userSuccess:
+            return { ...state, success: action.payload };
         case userActions.ActionTypes.resetLogin:
             return Object.assign({}, initialState);
         default:

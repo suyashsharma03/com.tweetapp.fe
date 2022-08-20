@@ -1,13 +1,11 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
+import { Subject, takeUntil } from "rxjs";
 import { ValidationService } from "../../../../shared/services/validation.service";
+import * as fromApp from "../../../../store/tweetapp.reducer";
 import { UserLogin } from "../../model/login.model";
 import * as userActions from "../../store/user.action";
-import * as fromApp from "../../../../store/tweetapp.reducer";
-import { Subject, takeUntil } from "rxjs";
-import { StringMapWithRename } from "@angular/compiler/src/compiler_facade_interface";
 
 @Component({
   selector: "app-login",
@@ -84,6 +82,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     if(!this.loginForm?.value?.password) {
       this.isPasswordInvalid = true;
     }
+  }
+
+  public goToForgotPass(): void {
+    this.store.dispatch(new userActions.RedirectToForgotPassword());
   }
 
   private clearStorage(): void {

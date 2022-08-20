@@ -104,12 +104,19 @@
                     <input
                       type="password"
                       id="typePasswordX"
-                      [ngClass]="isPasswordEmpty ? 'form-control form-control-lg input-invalid' : 'form-control form-control-lg'"
+                      [ngClass]="
+                        isPasswordEmpty || isPasswordLength ? 
+                        'form-control form-control-lg input-invalid' : 
+                        'form-control form-control-lg'
+                      "
                       formControlName="password"
-                      (focus)="isPasswordEmpty=removeInvalid()"
+                      (focus)="isPasswordEmpty=removeInvalid();isPasswordLength=removeInvalid()"
                     />
                     <div [ngClass]="isPasswordEmpty ? 'invalid-text' : 'hidden'">
                       {{ "passwordRequired" | translate }}
+                    </div>
+                    <div [ngClass]="isPasswordLength ? 'invalid-text' : 'hidden'">
+                      {{ "forgotPassword.passwordLength" | translate }}
                     </div>
                   </div>
                 </div>

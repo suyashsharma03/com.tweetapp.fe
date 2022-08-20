@@ -15,7 +15,7 @@ import * as tweetActions from "../../store/tweet.action";
 export class PostsComponent implements OnInit, OnDestroy {
 
   @Input() userId?: string;
-  public likeImageSrc: string;
+  public likeImageSrc: string = "../../../../../assets/icons/liked.svg";
   public isComment = false;
   public tweets: TweetResponse[];
   public userName: string;
@@ -29,12 +29,6 @@ export class PostsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    if(this.isLiked) {
-      this.likeImageSrc = "../../../../../assets/icons/liked.svg";
-    }
-    else {
-      this.likeImageSrc = "../../../../../assets/icons/notliked.svg";
-    }
     if(localStorage.getItem("token")){
       if(!this.userId) {
         this.fetchTweets();
@@ -89,8 +83,8 @@ export class PostsComponent implements OnInit, OnDestroy {
       .select(fromApp.AppStates.tweetState)
       .pipe(takeUntil(this.destroy))
       .subscribe((tweetState) => { 
-        if(tweetState.tweets) {
-          this.tweets = tweetState.tweets;
+        if(tweetState.userTweets) {
+          this.tweets = tweetState.userTweets;
         }
       }
     );
@@ -110,12 +104,6 @@ export class PostsComponent implements OnInit, OnDestroy {
   public likeStatus(tweetId: string): void {
     this.isLiked = !this.isLiked;
     //this.store.dispatch(new )
-    if(this.isLiked) {
-      this.likeImageSrc = "../../../../../assets/icons/liked.svg";
-    }
-    else {
-      this.likeImageSrc = "../../../../../assets/icons/notliked.svg";
-    }
   }
 
   public commentClicked(): void {

@@ -1,6 +1,7 @@
 import { Action } from "@ngrx/store";
+import { Successful } from "src/app/shared/model/success.model";
 import { Error } from "../../../shared/model/error.model";
-import { UserDetails, UserLogin } from "../model/login.model";
+import { ForgotPassword, ResetPassword, UserDetails, UserLogin } from "../model/login.model";
 import { UserRegistration } from "../model/register.model";
 
 export enum ActionTypes {
@@ -10,11 +11,14 @@ export enum ActionTypes {
     redirectToHome = "REDIRECT_TO_HOME",
     redirectToRegistration = "REDIRECT_TO_REGISTRATION",
     redirectToLogin = "REDIRECT_TO_LOGIN",
+    redirectToForgotPassword = "REDIRECT_TO_FORGOT_PASSWORD",
     fetchUserDetails = "FETCH_USER_DETAILS",
     setUserDetails = "SET_USER_DETAILS",
     userError = "USER_ERROR",
+    userSuccess = "USER_SUCCESS",
     fetchAllUsers = "FETCH_ALL_USERS",
     setUsers = "SET_USERS",
+    forgotPassword = "FORGOT_PASSWORD",
 }
 
 export class FetchLogin implements Action {
@@ -43,6 +47,10 @@ export class RedirectToLogin implements Action {
     readonly type = ActionTypes.redirectToLogin;
 }
 
+export class RedirectToForgotPassword implements Action {
+    readonly type = ActionTypes.redirectToForgotPassword;
+}
+
 export class FetchUserDetails implements Action {
     readonly type = ActionTypes.fetchUserDetails;
     constructor(public payload: UserRegistration) {}
@@ -61,6 +69,11 @@ export class UserError implements Action {
     constructor(public payload: Error) {}
 }
 
+export class UserSuccess implements Action {
+    readonly type = ActionTypes.userSuccess;
+    constructor(public payload: Successful) {}
+}
+
 export class FetchAllUsers implements Action {
     readonly type = ActionTypes.fetchAllUsers;
 }
@@ -70,14 +83,27 @@ export class SetUsers implements Action {
     constructor(public payload: UserDetails[]) {}
 }
 
+export class ForgetPassword implements Action {
+    readonly type = ActionTypes.forgotPassword;
+    readonly forgot: ForgotPassword;
+    public userId: string;
+    constructor(public payload: ForgotPassword, userId: string) {
+        this.forgot = payload;
+        this.userId = userId;
+    }
+}
+
 export type UserActions = 
     | FetchLogin
     | SetLogin
     | RedirectToRegistration
     | RedirectToLogin
+    | RedirectToForgotPassword
     | FetchUserDetails
     | SetUserDetails
     | ResetLogin
     | UserError
+    | UserSuccess
     | FetchAllUsers
-    | SetUsers;
+    | SetUsers
+    | ForgetPassword;
