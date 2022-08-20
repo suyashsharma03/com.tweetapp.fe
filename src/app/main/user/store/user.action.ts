@@ -1,7 +1,7 @@
 import { Action } from "@ngrx/store";
 import { Successful } from "src/app/shared/model/success.model";
 import { Error } from "../../../shared/model/error.model";
-import { ForgotPassword, ResetPassword, UserDetails, UserLogin } from "../model/login.model";
+import { ResetPassword, ForgotPassword, UserDetails, UserLogin } from "../model/login.model";
 import { UserRegistration } from "../model/register.model";
 
 export enum ActionTypes {
@@ -85,9 +85,9 @@ export class SetUsers implements Action {
 
 export class ForgetPassword implements Action {
     readonly type = ActionTypes.forgotPassword;
-    readonly forgot: ForgotPassword;
+    readonly forgot: ResetPassword;
     public userId: string;
-    constructor(public payload: ForgotPassword, userId: string) {
+    constructor(public payload: ResetPassword, userId: string) {
         this.forgot = payload;
         this.userId = userId;
     }

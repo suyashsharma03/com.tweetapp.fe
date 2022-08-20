@@ -5,7 +5,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { Subject, takeUntil } from "rxjs";
 import { ValidationService } from "../../../../shared/services/validation.service";
 import * as fromApp from "../../../../store/tweetapp.reducer";
-import { ForgotPassword } from "../../model/login.model";
+import { ResetPassword } from "../../model/login.model";
 import * as userActions from "../../store/user.action";
 
 @Component({
@@ -27,7 +27,7 @@ export class ForgotComponent implements OnInit, OnDestroy {
   public isPasswordLength = false;
 
   private destroy = new Subject<void>();
-  private forgot: ForgotPassword;
+  private forgot: ResetPassword;
   private userId: string;
 
   constructor(

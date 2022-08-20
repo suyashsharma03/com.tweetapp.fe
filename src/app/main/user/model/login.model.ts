@@ -12,12 +12,12 @@ export interface UserLogin {
     password: string;
 }
 
-export interface ForgotPassword {
+export interface ResetPassword {
     oldPassword: string;
     newPassword: string;
 }
 
-export interface ResetPassword {
+export interface ForgotPassword {
     emailId: string;
     securityQuestion: number;
     securityAnswer: string;

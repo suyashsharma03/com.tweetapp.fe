@@ -138,7 +138,7 @@ export class UserCreateEffects {
     );
 
     private forgotPasswordSwitchMap(input: userActions.ForgetPassword) {
-        return this.httpService.forgotPassword(input.userId, input.payload).pipe(
+        return this.httpService.resetPassword(input.userId, input.payload).pipe(
             map((resData: Successful) => {
                 return new userActions.UserSuccess(resData);
             }),
