@@ -1,6 +1,8 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Subject, takeUntil } from "rxjs";
+import { UserDetails } from "../../../../main/user/model/login.model";
 import * as fromApp from "../../../../store/tweetapp.reducer";
 import { TweetResponse } from "../../model/tweet.model";
 import * as tweetActions from "../../store/tweet.action";
@@ -12,11 +14,13 @@ import * as tweetActions from "../../store/tweet.action";
 })
 export class PostsComponent implements OnInit, OnDestroy {
 
+  @Input() userId?: string;
   public likeImageSrc: string;
   public isComment = false;
   public tweets: TweetResponse[];
   public userName: string;
 
+  private allUsers: UserDetails[];
   private isLiked = false;
   private destroy = new Subject<void>();
 
@@ -32,8 +36,16 @@ export class PostsComponent implements OnInit, OnDestroy {
       this.likeImageSrc = "../../../../../assets/icons/notliked.svg";
     }
     if(localStorage.getItem("token")){
-      this.fetchTweets();
-      this.setTweets();
+      if(!this.userId) {
+        this.fetchTweets();
+        this.setTweets();
+      }
+      else {
+        this.fetchParticularUserTweets();
+        this.setParticularUserTweets();
+      }
+      this.getLoggedInUserDetails();
+      this.getAllUsers();
     }
   }
 
@@ -42,11 +54,7 @@ export class PostsComponent implements OnInit, OnDestroy {
     this.destroy.complete();
   }
   
-  public fetchTweets(): void {
-    this.store.dispatch(new tweetActions.FetchTweets());
-  }
-
-  public setTweets(): void {
+  private getLoggedInUserDetails(): void {
     this.store
       .select(fromApp.AppStates.userState)
       .pipe(takeUntil(this.destroy))
@@ -54,6 +62,13 @@ export class PostsComponent implements OnInit, OnDestroy {
         this.userName = userState.user.emailId;
       }
     );
+  }
+
+  public fetchTweets(): void {
+    this.store.dispatch(new tweetActions.FetchTweets());
+  }
+
+  public setTweets(): void {
     this.store
       .select(fromApp.AppStates.tweetState)
       .pipe(takeUntil(this.destroy))
@@ -63,6 +78,33 @@ export class PostsComponent implements OnInit, OnDestroy {
         }
       }
     );
+  }
+
+  private fetchParticularUserTweets(): void {
+    this.store.dispatch(new tweetActions.FetchTweet(this.userId));
+  }
+
+  private setParticularUserTweets(): void {
+    this.store
+      .select(fromApp.AppStates.tweetState)
+      .pipe(takeUntil(this.destroy))
+      .subscribe((tweetState) => { 
+        if(tweetState.tweets) {
+          this.tweets = tweetState.tweets;
+        }
+      }
+    );
+  }
+
+  private getAllUsers(): void {
+    this.store
+      .select(fromApp.AppStates.userState)
+      .pipe(takeUntil(this.destroy))
+      .subscribe((userState) => {
+        if(userState?.allUsers) {
+          this.allUsers = userState?.allUsers;
+        }
+      })
   }
 
   public likeStatus(tweetId: string): void {
@@ -80,8 +122,11 @@ export class PostsComponent implements OnInit, OnDestroy {
     this.isComment = !this.isComment;
   }
 
-  public getUserDp(gender: string): string {
-    if(gender.toLowerCase() === "female"){
+  public getUserDp(userEmail: string): string {
+    const gender = this.allUsers?.filter(user => {
+      userEmail === user.emailId
+    })[0]?.gender;
+    if(gender?.toLowerCase() === "female"){
       return "../../../../assets/icons/female_avatar.svg";
     }
     else {
@@ -95,5 +140,9 @@ export class PostsComponent implements OnInit, OnDestroy {
 
   public deleteTweet(tweetId: string): void {
 
+  }
+
+  public goToSubscribers(userName: string): void {
+    this.store.dispatch(new tweetActions.GetUser(userName));
   }
 }

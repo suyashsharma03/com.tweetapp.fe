@@ -13,6 +13,8 @@ export enum ActionTypes {
     fetchUserDetails = "FETCH_USER_DETAILS",
     setUserDetails = "SET_USER_DETAILS",
     userError = "USER_ERROR",
+    fetchAllUsers = "FETCH_ALL_USERS",
+    setUsers = "SET_USERS",
 }
 
 export class FetchLogin implements Action {
@@ -59,6 +61,15 @@ export class UserError implements Action {
     constructor(public payload: Error) {}
 }
 
+export class FetchAllUsers implements Action {
+    readonly type = ActionTypes.fetchAllUsers;
+}
+
+export class SetUsers implements Action {
+    readonly type = ActionTypes.setUsers;
+    constructor(public payload: UserDetails[]) {}
+}
+
 export type UserActions = 
     | FetchLogin
     | SetLogin
@@ -67,4 +78,6 @@ export type UserActions =
     | FetchUserDetails
     | SetUserDetails
     | ResetLogin
-    | UserError;
+    | UserError
+    | FetchAllUsers
+    | SetUsers;

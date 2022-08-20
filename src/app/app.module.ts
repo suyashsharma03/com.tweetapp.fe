@@ -11,18 +11,20 @@ import { LoginComponent } from "./main/user/components/login/login.component";
 import { UserService } from "./main/user/service/user.service";
 import { UserCreateEffects } from "./main/user/store/user.effects";
 import { RegisterComponent } from "./main/user/components/register/register.component";
-import { TweetComponent } from "./main/tweet/component/tweet.component";
+import { TweetComponent } from "./main/tweets/component/tweet/tweet.component";
 import { HeaderComponent } from './shared/component/header/header.component';
 import * as fromAppStore from "./store/tweetapp.reducer";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ValidationService } from "./shared/services/validation.service";
-import { PostsComponent } from './main/tweet/component/posts/posts.component';
+import { PostsComponent } from './main/tweets/component/posts/posts.component';
 import { MatIconModule } from "@angular/material/icon";
 import { UnauthorizedComponent } from './shared/component/unauthorized/unauthorized.component';
-import { TweetCreateEffects } from "./main/tweet/store/tweet.effects";
+import { TweetCreateEffects } from "./main/tweets/store/tweet.effects";
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { TweetService } from "./main/tweet/service/tweet.service";
+import { TweetService } from "./main/tweets/service/tweet.service";
 import { AuthInterceptor } from "./shared/interceptor/AuthInterceptor";
+import { ProfileComponent } from './main/user/components/profile/profile.component';
+import { SubscribersComponent } from './main/tweets/component/subscribers/subscribers.component';
 
 export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -36,7 +38,9 @@ export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
     TweetComponent,
     HeaderComponent,
     PostsComponent,
-    UnauthorizedComponent
+    UnauthorizedComponent,
+    ProfileComponent,
+    SubscribersComponent
   ],
   imports: [
     BrowserModule,

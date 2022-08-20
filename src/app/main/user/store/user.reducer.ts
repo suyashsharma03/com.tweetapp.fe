@@ -8,7 +8,8 @@ export interface State {
     userLogin: UserLogin;
     userRegistration: UserRegistration;
     email: string;
-    error: Error
+    error: Error,
+    allUsers: UserDetails[]
 }
 
 export const initialState: State = {
@@ -16,7 +17,8 @@ export const initialState: State = {
     userLogin: null,
     userRegistration: null,
     email: null,
-    error: null
+    error: null,
+    allUsers: null,
 }
 
 export function reducer(
@@ -35,6 +37,8 @@ export function reducer(
             return { ...state, userRegistration: action.payload };
         case userActions.ActionTypes.setUserDetails:
             return { ...state, email: action.email };
+        case userActions.ActionTypes.setUsers:
+            return { ...state, allUsers: action.payload };
         case userActions.ActionTypes.userError:
             return { ...state, error: action.payload };
         case userActions.ActionTypes.resetLogin:

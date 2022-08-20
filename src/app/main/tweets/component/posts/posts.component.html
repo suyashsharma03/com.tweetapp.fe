@@ -8,12 +8,16 @@
                       <div class="col-md-11">
                           <div class="media">
                             <div class="media-left">
-                              <a href="">
-                                <img class="media-object photo-profile" [src]="getUserDp('female')" width="40" height="40" alt="...">
+                              <a>
+                                <img class="media-object photo-profile" [src]="getUserDp(tweet.userId)" width="40" height="40" alt="...">
                               </a>
                             </div>
                             <div class="media-body">
-                              <a href="" class="anchor-username"><h4 class="media-heading">{{tweet.firstName}} {{tweet.lastName}}</h4></a> 
+                              <a class="anchor-username" (click)="goToSubscribers(tweet.userId)">
+                                <h4 class="media-heading">
+                                  {{tweet.firstName | titlecase}} {{tweet.lastName | titlecase}}
+                                </h4>
+                              </a> 
                             </div>
                             <div *ngIf="userName === tweet.userId">
                               <a>
@@ -58,5 +62,5 @@
           </div>
         </div>
       </ng-container>
-    </div>   
+    </div>
 </div>

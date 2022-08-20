@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Subject, takeUntil } from "rxjs";
-import * as fromApp from "../../../store/tweetapp.reducer";
-import * as tweetActions from "../store/tweet.action";
-import * as userActions from "../../user/store/user.action";
+import * as fromApp from "../../../../store/tweetapp.reducer";
+import * as tweetActions from "../../store/tweet.action";
+import * as userActions from "../../../user/store/user.action";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { ValidationService } from "../../../shared/services/validation.service";
-import { Tweet } from "../model/tweet.model";
-import { PostsComponent } from "./posts/posts.component";
+import { ValidationService } from "../../../../shared/services/validation.service";
+import { Tweet } from "../../model/tweet.model";
+import { PostsComponent } from "../posts/posts.component";
 
 @Component({
   selector: "app-tweet",
@@ -60,12 +60,13 @@ export class TweetComponent implements OnInit, OnDestroy {
           this.clearStorage();
         }
       });
+      this.getAllUsers();
   }
 
   ngOnDestroy(): void {
     this.destroy.next();
     this.destroy.complete();
-    this.clearStorage();
+    //this.clearStorage();
   }
 
   private initializeForm(): void {
@@ -77,6 +78,12 @@ export class TweetComponent implements OnInit, OnDestroy {
   private setToStorage(token: string): void {
     localStorage.setItem("token", token);
     sessionStorage.setItem("token", token);
+  }
+
+  private getAllUsers() {
+    if(localStorage.getItem("token") || sessionStorage.getItem("token")) {
+      this.store.dispatch(new userActions.FetchAllUsers());
+    }
   }
 
   private clearStorage(): void {

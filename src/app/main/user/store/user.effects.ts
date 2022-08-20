@@ -92,6 +92,27 @@ export class UserCreateEffects {
         );
     }
 
+    searchAllUsers$ = createEffect(
+        () => {
+            return this.actions$.pipe(
+                ofType(userActions.ActionTypes.fetchAllUsers),
+                switchMap((input: userActions.FetchAllUsers) =>
+                    this.searchAllUserSwitchMap(input)
+                )
+            )
+        }
+    );
+
+    private searchAllUserSwitchMap(input: userActions.FetchAllUsers):
+    Observable<userActions.UserError | userActions.SetUsers> {
+        return this.httpService.getAllUser().pipe(
+            map((resData: UserDetails[]) => {
+                return new userActions.SetUsers(resData);
+            }),
+            catchError((error) => this.setErrorMessage(error))
+        );
+    }
+
     private setErrorMessage(error): Observable<userActions.UserError> {
         console.log(error);
         return of(new userActions.UserError({

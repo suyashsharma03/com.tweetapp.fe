@@ -25,4 +25,14 @@ export class UserService {
         const apiUrl = `${this.basePath}/register`;
         return this.httpClient.post<UserRegistration>(apiUrl, userRegistration);
     }
+
+    getUser(userName: string): Observable<UserDetails> {
+        const apiUrl = `${this.basePath}/user/search/${userName}`;
+        return this.httpClient.get<UserDetails>(apiUrl);
+    }
+
+    getAllUser(): Observable<UserDetails[]> {
+        const apiUrl = `${this.basePath}/users/all`;
+        return this.httpClient.get<UserDetails[]>(apiUrl);
+    }
 }

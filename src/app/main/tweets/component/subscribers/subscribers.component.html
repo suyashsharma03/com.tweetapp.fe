@@ -1,0 +1,47 @@
+<div class="box-shadow-back" (click)="back()">
+    <button button class="btn btn-lg btn-primary">
+        Back
+    </button>
+</div>
+<div class="body row">
+    <div class="wrapper">
+        <a class="profile-bg main-wrapper d-block"></a>
+        <div>
+            <a id="profile-link">
+                <img [src]="getUserDp()" id="profile-img">
+            </a>
+            <div id="profile-marg">
+                <div id="profile-name">
+                    <a>{{name | titlecase}}</a>
+                </div>
+                <span>
+                    <a>@<span>({{userName}})</span></a>
+                </span>
+            </div>
+            <div id="profile-state">
+                <ul id="profile-Arrange">
+                <li id="profile-details">
+                    <a>
+                        <span class="d-block" id="profile-label">Gender</span>
+                        <span id="profile-number">
+                            {{gender | titlecase}}
+                        </span>
+                    </a>
+                </li>
+                <li id="profile-details">
+                    <a>
+                        <span class="d-block" id="profile-label">Date Of Birth</span>
+                        <span id="profile-number">
+                            {{birthDate | date: format}}
+                        </span>
+                    </a>
+                </li>
+                <li id="profile-details">
+                </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <app-posts userId="{{userName}}"></app-posts>
+</div>
+

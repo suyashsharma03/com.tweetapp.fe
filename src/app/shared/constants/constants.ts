@@ -15,4 +15,5 @@ export class Constants {
     public static homePage = "/tweet";
     public static loginPage = "/login";
     public static unauthorized = "/unauthorized";
+    public static searchUser = "/subscriber";
 }

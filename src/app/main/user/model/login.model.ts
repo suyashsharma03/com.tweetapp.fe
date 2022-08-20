@@ -2,7 +2,7 @@ export interface UserDetails {
     emailId: string;
     firstName: string;
     lastName: string;
-    dob: Date;
+    dateOfBirth: Date;
     gender: string;
     token: string;
 }
