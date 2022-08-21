@@ -28,6 +28,7 @@ import { SubscribersComponent } from './main/tweets/component/subscribers/subscr
 import { FooterComponent } from './shared/component/footer/footer.component';
 import { ResetpasswordComponent } from './main/user/components/resetpassword/resetpassword.component';
 import { ForgotComponent } from './main/user/components/forgot/forgot.component';
+import { NgHttpLoaderModule } from "ng-http-loader";
 
 export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -66,6 +67,7 @@ export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
         deps: [HttpClient]
       },
     }),
+    NgHttpLoaderModule.forRoot(),
     MatIconModule,
     FlexLayoutModule
   ],
