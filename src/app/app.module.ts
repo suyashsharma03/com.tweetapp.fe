@@ -26,6 +26,7 @@ import { AuthInterceptor } from "./shared/interceptor/AuthInterceptor";
 import { ProfileComponent } from './main/user/components/profile/profile.component';
 import { SubscribersComponent } from './main/tweets/component/subscribers/subscribers.component';
 import { FooterComponent } from './shared/component/footer/footer.component';
+import { ResetpasswordComponent } from './main/user/components/resetpassword/resetpassword.component';
 import { ForgotComponent } from './main/user/components/forgot/forgot.component';
 
 export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
@@ -44,6 +45,7 @@ export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
     ProfileComponent,
     SubscribersComponent,
     FooterComponent,
+    ResetpasswordComponent,
     ForgotComponent
   ],
   imports: [

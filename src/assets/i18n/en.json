@@ -25,6 +25,8 @@
     "oldPassword": "Old Password",
     "newPassword": "New Password",
     "resetPassword": "Reset Password",
+    "backButton": "Back",
+    "submit": "Submit",
     "tweet": {
         "tweetboxPlaceholder": "What's Happening?",
         "postButton": "Post",
@@ -33,6 +35,7 @@
     "header": {
         "brandName": "TweetApp",
         "search": "Search",
+        "incorrectCriteria": "UserName entered is incomplete or incorrect",
         "headerUserList":{
             "profile": "Profile",
             "passwordChange": "Change Password",
@@ -69,7 +72,7 @@
         "developedByText": "Developed By: ",
         "author": "Suyash Sharma"
     },
-    "forgotPassword": {
+    "passwordReset": {
         "passwordLength": "Password Length should be greater than 6 and less than 20",
         "passwordChanged": "Password Changed Successfully!!!"
     }

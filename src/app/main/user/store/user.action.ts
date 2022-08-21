@@ -12,13 +12,16 @@ export enum ActionTypes {
     redirectToRegistration = "REDIRECT_TO_REGISTRATION",
     redirectToLogin = "REDIRECT_TO_LOGIN",
     redirectToForgotPassword = "REDIRECT_TO_FORGOT_PASSWORD",
+    redirectToResetPassword = "REDIRECT_TO_RESET_PASSWORD",
     fetchUserDetails = "FETCH_USER_DETAILS",
     setUserDetails = "SET_USER_DETAILS",
     userError = "USER_ERROR",
     userSuccess = "USER_SUCCESS",
     fetchAllUsers = "FETCH_ALL_USERS",
     setUsers = "SET_USERS",
+    resetPassword = "RESET_PASSWORD",
     forgotPassword = "FORGOT_PASSWORD",
+    forgotResetPassword = "FORGOT_RESET_PASSWORD",
 }
 
 export class FetchLogin implements Action {
@@ -49,6 +52,14 @@ export class RedirectToLogin implements Action {
 
 export class RedirectToForgotPassword implements Action {
     readonly type = ActionTypes.redirectToForgotPassword;
+}
+
+export class RedirectToResetPassword implements Action {
+    readonly type = ActionTypes.redirectToResetPassword;
+    readonly userId?: string;
+    constructor(public payload?: string) {
+        this.userId = payload;
+    }
 }
 
 export class FetchUserDetails implements Action {
@@ -83,13 +94,31 @@ export class SetUsers implements Action {
     constructor(public payload: UserDetails[]) {}
 }
 
-export class ForgetPassword implements Action {
-    readonly type = ActionTypes.forgotPassword;
-    readonly forgot: ResetPassword;
+export class ResetPasswordAction implements Action {
+    readonly type = ActionTypes.resetPassword;
+    readonly reset: ResetPassword;
     public userId: string;
     constructor(public payload: ResetPassword, userId: string) {
-        this.forgot = payload;
+        this.reset = payload;
         this.userId = userId;
+    }
+}
+
+export class ForgotResetPasswordAction implements Action {
+    readonly type = ActionTypes.forgotResetPassword;
+    readonly reset: ResetPassword;
+    public userId: string;
+    constructor(public payload: ResetPassword, userId: string) {
+        this.reset = payload;
+        this.userId = userId;
+    }
+}
+
+export class ForgotPasswordAction implements Action {
+    readonly type = ActionTypes.forgotPassword;
+    readonly reset: ForgotPassword;
+    constructor(public payload: ForgotPassword) {
+        this.reset = payload;
     }
 }
 
@@ -99,6 +128,7 @@ export type UserActions =
     | RedirectToRegistration
     | RedirectToLogin
     | RedirectToForgotPassword
+    | RedirectToResetPassword
     | FetchUserDetails
     | SetUserDetails
     | ResetLogin
@@ -106,4 +136,6 @@ export type UserActions =
     | UserSuccess
     | FetchAllUsers
     | SetUsers
-    | ForgetPassword;
+    | ResetPasswordAction
+    | ForgotPasswordAction
+    | ForgotResetPasswordAction;

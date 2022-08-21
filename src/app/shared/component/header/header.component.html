@@ -11,15 +11,20 @@
       </span>
     </a>
     <div class="collapse navbar-collapse p-2" id="navbarSupportedContent" *ngIf="isLoggedIn">
-      <form class="form-inline my-2 my-lg-0" fxFlex="90">
+      <form class="form-inline my-2 my-lg-0" fxFlex="90" [formGroup]="searchForm">
         <input 
           type="search" 
           class="form-control margin-r-10"
           placeholder="{{ 'header.search' | translate }}"
+          formControlName="search"
+          (focus)="isEmailFormatWrong=false"
         />
-        <button type="button" class="btn btn-outline-success my-2 my-sm-0">
+        <button type="button" class="btn btn-outline-success my-2 my-sm-0" (click)="searchUsers()">
           {{ "header.search" | translate }}
         </button>
+        <div [ngClass]="isEmailFormatWrong ? 'invalid-text' : 'hidden'">
+          {{ "header.incorrectCriteria" | translate }}
+        </div>
       </form>
       <button
         type="button"
@@ -31,10 +36,16 @@
       >
         <img src="../../../../assets/icons/user.svg" width="30">
       </button>
-      <div class="dropdown-menu margin-l-1080 bg-dark" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item text-light" >{{ "header.headerUserList.profile" | translate }}</a>
-        <a class="dropdown-item text-light" href="">{{ "header.headerUserList.passwordChange" | translate }}</a>
-        <a class="dropdown-item text-light" href="/">{{ "header.headerUserList.logout" | translate }}</a>
+      <div class="dropdown-menu margin-l-1080 bg-dark" aria-labelledby="dropdownMenuButton" (click)="goToProfile()">
+        <a class="dropdown-item text-light" >
+          {{ "header.headerUserList.profile" | translate }}
+        </a>
+        <a class="dropdown-item text-light" (click)="goToResetPassword()">
+          {{ "header.headerUserList.passwordChange" | translate }}
+        </a>
+        <a class="dropdown-item text-light" href="/">
+          {{ "header.headerUserList.logout" | translate }}
+        </a>
       </div>
     </div>
   </div>

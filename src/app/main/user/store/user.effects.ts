@@ -60,6 +60,18 @@ export class UserCreateEffects {
         {dispatch: false}
     );
 
+    redirectToResetPassword$ = createEffect(
+        () => {
+            return this.actions$.pipe(
+                ofType(userActions.ActionTypes.redirectToResetPassword),
+                tap(() => {
+                    this.router.navigate([Constants.resetPassword]);
+                })
+            );
+        },
+        {dispatch: false}
+    );
+
     doLogin$ = createEffect(
         () => {
             return this.actions$.pipe(
@@ -72,8 +84,7 @@ export class UserCreateEffects {
     );
 
     private doLoginSwitchMap(input : userActions.FetchLogin):
-    Observable<userActions.SetLogin | userActions.UserError>
-    {
+    Observable<userActions.SetLogin | userActions.UserError> {
         return this.httpService
         .postLogin(input.payload)
         .pipe(
@@ -126,21 +137,63 @@ export class UserCreateEffects {
         );
     }
 
-    forgotPaswword$ = createEffect(
+    resetPaswword$ = createEffect(
+        () => {
+            return this.actions$.pipe(
+                ofType(userActions.ActionTypes.resetPassword),
+                switchMap((input: userActions.ResetPasswordAction) =>
+                    this.resetPasswordSwitchMap(input)
+                )
+            )
+        }
+    );
+
+    private resetPasswordSwitchMap(input: userActions.ResetPasswordAction):
+    Observable<userActions.UserError | userActions.UserSuccess> {
+        return this.httpService.resetPassword(input.userId, input.payload).pipe(
+            map((resData: Successful) => {
+                return new userActions.UserSuccess(resData);
+            }),
+            catchError((error) => this.setErrorMessage(error))
+        );
+    }
+
+    forgotResetPaswword$ = createEffect(
+        () => {
+            return this.actions$.pipe(
+                ofType(userActions.ActionTypes.forgotResetPassword),
+                switchMap((input: userActions.ForgotResetPasswordAction) =>
+                    this.forgotResetPasswordSwitchMap(input)
+                )
+            )
+        }
+    );
+
+    private forgotResetPasswordSwitchMap(input: userActions.ForgotResetPasswordAction):
+    Observable<userActions.UserError | userActions.UserSuccess> {
+        return this.httpService.forgotResetPassword(input.userId, input.payload).pipe(
+            map((resData: Successful) => {
+                return new userActions.UserSuccess(resData);
+            }),
+            catchError((error) => this.setErrorMessage(error))
+        );
+    }
+
+    forgotPassword$ = createEffect(
         () => {
             return this.actions$.pipe(
                 ofType(userActions.ActionTypes.forgotPassword),
-                switchMap((input: userActions.ForgetPassword) =>
+                switchMap((input: userActions.ForgotPasswordAction) =>
                     this.forgotPasswordSwitchMap(input)
                 )
             )
         }
     );
 
-    private forgotPasswordSwitchMap(input: userActions.ForgetPassword) {
-        return this.httpService.resetPassword(input.userId, input.payload).pipe(
-            map((resData: Successful) => {
-                return new userActions.UserSuccess(resData);
+    private forgotPasswordSwitchMap(input: userActions.ForgotPasswordAction) {
+        return this.httpService.forgotPassword(input.payload).pipe(
+            map(() => {
+                return new userActions.RedirectToResetPassword(input.payload.emailId);
             }),
             catchError((error) => this.setErrorMessage(error))
         );

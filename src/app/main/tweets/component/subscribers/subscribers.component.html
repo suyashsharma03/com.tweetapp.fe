@@ -1,6 +1,6 @@
 <div class="box-shadow-back" (click)="back()">
     <button button class="btn btn-lg btn-primary">
-        Back
+        {{ "backButton" | translate }}
     </button>
 </div>
 <div class="body row">
@@ -22,7 +22,9 @@
                 <ul id="profile-Arrange">
                 <li id="profile-details">
                     <a>
-                        <span class="d-block" id="profile-label">Gender</span>
+                        <span class="d-block" id="profile-label">
+                            {{ "gender" | translate }}
+                        </span>
                         <span id="profile-number">
                             {{gender | titlecase}}
                         </span>
@@ -30,7 +32,9 @@
                 </li>
                 <li id="profile-details">
                     <a>
-                        <span class="d-block" id="profile-label">Date Of Birth</span>
+                        <span class="d-block" id="profile-label">
+                            {{ "dob" | translate }}
+                        </span>
                         <span id="profile-number">
                             {{birthDate | date: format}}
                         </span>

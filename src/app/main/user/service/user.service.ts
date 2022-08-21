@@ -37,14 +37,20 @@ export class UserService {
         return this.httpClient.get<UserDetails[]>(apiUrl);
     }
 
-    resetPassword(userId: string, forgot: ResetPassword):
+    resetPassword(userId: string, resetPassword: ResetPassword):
     Observable<Successful> {
         const apiUrl = `${this.basePath}/resetPassword/${userId}`;
-        return this.httpClient.put<Successful>(apiUrl, forgot);
+        return this.httpClient.put<Successful>(apiUrl, resetPassword);
     }
 
-    forgotPassword(resetPassword: ForgotPassword): Observable<Successful> {
-        const apiUrl = `${this.basePath}/forgot`;
+    forgotResetPassword(userId: string, resetPassword: ResetPassword):
+    Observable<Successful> {
+        const apiUrl = `${this.basePath}/reset/${userId}`;
         return this.httpClient.put<Successful>(apiUrl, resetPassword);
+    }
+
+    forgotPassword(forgot: ForgotPassword): Observable<Successful> {
+        const apiUrl = `${this.basePath}/forgot`;
+        return this.httpClient.put<Successful>(apiUrl, forgot);
     }
 }

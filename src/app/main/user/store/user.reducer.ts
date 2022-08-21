@@ -46,6 +46,8 @@ export function reducer(
             return { ...state, error: action.payload };
         case userActions.ActionTypes.userSuccess:
             return { ...state, success: action.payload };
+        case userActions.ActionTypes.redirectToResetPassword:
+            return { ...state, email: action.payload };
         case userActions.ActionTypes.resetLogin:
             return Object.assign({}, initialState);
         default:
