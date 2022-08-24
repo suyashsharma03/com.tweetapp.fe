@@ -23,9 +23,9 @@ export class TweetService {
         return this.httpClient.post<TweetResponse>(apiUrl, tweet);
     }
     
-    likeUnlikeTweet(userName: string, tweetId: string) {
+    likeUnlikeTweet(userName: string, tweetId: string): Observable<number> {
         const apiUrl = `${this.basePath}/${userName}/like/${tweetId}`;
-        return this.httpClient.get(apiUrl);
+        return this.httpClient.put<number>(apiUrl, {});
     }
 
     deleteTweet(tweetId: string): Observable<Successful> {

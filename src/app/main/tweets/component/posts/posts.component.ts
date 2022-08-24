@@ -1,7 +1,9 @@
+import { Location } from "@angular/common";
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Subject, takeUntil } from "rxjs";
+import { Constants } from "src/app/shared/constants/constants";
 import { UserDetails } from "../../../../main/user/model/login.model";
 import * as fromApp from "../../../../store/tweetapp.reducer";
 import { TweetResponse } from "../../model/tweet.model";
@@ -19,13 +21,17 @@ export class PostsComponent implements OnInit, OnDestroy {
   public isComment = false;
   public tweets: TweetResponse[];
   public userName: string;
+  public likeTweetId: string;
+  public likeTweetCount: number;
 
   private allUsers: UserDetails[];
   private isLiked = false;
   private destroy = new Subject<void>();
+  private deleteSuccessful = false;
 
   constructor(
-    private readonly store: Store<fromApp.TweetAppState>
+    private readonly store: Store<fromApp.TweetAppState>,
+    private readonly location: Location
   ) { }
 
   ngOnInit(): void {
@@ -53,7 +59,7 @@ export class PostsComponent implements OnInit, OnDestroy {
       .select(fromApp.AppStates.userState)
       .pipe(takeUntil(this.destroy))
       .subscribe((userState) => {
-        this.userName = userState.user.emailId;
+        this.userName = userState?.user?.emailId;
       }
     );
   }
@@ -67,8 +73,8 @@ export class PostsComponent implements OnInit, OnDestroy {
       .select(fromApp.AppStates.tweetState)
       .pipe(takeUntil(this.destroy))
       .subscribe((tweetState) => { 
-        if(tweetState.tweets){
-          this.tweets = tweetState.tweets;
+        if(tweetState?.tweets){
+          this.tweets = tweetState?.tweets;
         }
       }
     );
@@ -83,8 +89,8 @@ export class PostsComponent implements OnInit, OnDestroy {
       .select(fromApp.AppStates.tweetState)
       .pipe(takeUntil(this.destroy))
       .subscribe((tweetState) => { 
-        if(tweetState.userTweets) {
-          this.tweets = tweetState.userTweets;
+        if(tweetState?.userTweets) {
+          this.tweets = tweetState?.userTweets;
         }
       }
     );
@@ -98,12 +104,25 @@ export class PostsComponent implements OnInit, OnDestroy {
         if(userState?.allUsers) {
           this.allUsers = userState?.allUsers;
         }
-      })
+      });
   }
 
   public likeStatus(tweetId: string): void {
     this.isLiked = !this.isLiked;
-    //this.store.dispatch(new )
+    this.store.dispatch(new tweetActions.LikeUnlikeTweet(this.userName, tweetId));
+    this.likeCount();
+    this.likeTweetId = tweetId;
+  }
+
+  private likeCount(): void {
+    this.store
+      .select(fromApp.AppStates.tweetState)
+      .pipe(takeUntil(this.destroy))
+      .subscribe((tweetState) => {
+        if(tweetState?.likes || tweetState?.likes === 0) {
+          this.likeTweetCount = tweetState?.likes;
+        }
+      });
   }
 
   public commentClicked(): void {
@@ -126,8 +145,21 @@ export class PostsComponent implements OnInit, OnDestroy {
 
   }
 
-  public deleteTweet(tweetId: string): void {
-
+  public async deleteTweet(tweetId: string): Promise<void> {
+    this.store.dispatch(new tweetActions.DeleteTweet(tweetId));
+    this.store
+      .select(fromApp.AppStates.tweetState)
+      .pipe(takeUntil(this.destroy))
+      .subscribe((tweetState) => {
+        if(!tweetState?.error?.errorMessage) {
+          this.deleteSuccessful = true;
+          if(this.location.path().indexOf(Constants.searchUser)){
+            this.store.dispatch(new tweetActions.GotoRefresh());
+          } else {
+            this.store.dispatch(new tweetActions.GotoRefresh());
+          }
+        }
+      });
   }
 
   public goToSubscribers(userName: string): void {

@@ -7,6 +7,7 @@ import { UnauthorizedComponent } from "./shared/component/unauthorized/unauthori
 import { SubscribersComponent } from "./main/tweets/component/subscribers/subscribers.component";
 import { ResetpasswordComponent } from "./main/user/components/resetpassword/resetpassword.component";
 import { ForgotComponent } from "./main/user/components/forgot/forgot.component";
+import { RefreshComponent } from "./shared/component/refresh/refresh.component";
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
   {
     path: "forgotpassword",
     component: ForgotComponent
+  },
+  {
+    path: "refresh",
+    component: RefreshComponent
   }
 ];
 

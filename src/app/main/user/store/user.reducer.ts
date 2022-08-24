@@ -38,16 +38,42 @@ export function reducer(
             return { ...state, user: action.payload };
         case userActions.ActionTypes.fetchUserDetails:
             return { ...state, userRegistration: action.payload };
+        default:
+            return otherReducers(state, action);
+    }
+}
+
+export function otherReducers(
+    state: State,
+    action: userActions.UserActions
+): State {
+    if (!state) {
+        state = initialState;
+    }
+    switch(action.type) {
         case userActions.ActionTypes.setUserDetails:
             return { ...state, email: action.email };
         case userActions.ActionTypes.setUsers:
             return { ...state, allUsers: action.payload };
+        case userActions.ActionTypes.redirectToResetPassword:
+            return { ...state, email: action.payload };
+        default:
+            return errorSuccessResetReducer(state, action);
+    }
+}
+
+export function errorSuccessResetReducer(
+    state: State,
+    action: userActions.UserActions
+): State {
+    if (!state) {
+        state = initialState;
+    }
+    switch(action.type) {
         case userActions.ActionTypes.userError:
             return { ...state, error: action.payload };
         case userActions.ActionTypes.userSuccess:
             return { ...state, success: action.payload };
-        case userActions.ActionTypes.redirectToResetPassword:
-            return { ...state, email: action.payload };
         case userActions.ActionTypes.resetLogin:
             return Object.assign({}, initialState);
         default:

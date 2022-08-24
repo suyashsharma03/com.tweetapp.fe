@@ -23,12 +23,12 @@ import { TweetCreateEffects } from "./main/tweets/store/tweet.effects";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { TweetService } from "./main/tweets/service/tweet.service";
 import { AuthInterceptor } from "./shared/interceptor/AuthInterceptor";
-import { ProfileComponent } from './main/user/components/profile/profile.component';
 import { SubscribersComponent } from './main/tweets/component/subscribers/subscribers.component';
 import { FooterComponent } from './shared/component/footer/footer.component';
 import { ResetpasswordComponent } from './main/user/components/resetpassword/resetpassword.component';
 import { ForgotComponent } from './main/user/components/forgot/forgot.component';
 import { NgHttpLoaderModule } from "ng-http-loader";
+import { RefreshComponent } from './shared/component/refresh/refresh.component';
 
 export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -43,11 +43,11 @@ export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
     HeaderComponent,
     PostsComponent,
     UnauthorizedComponent,
-    ProfileComponent,
     SubscribersComponent,
     FooterComponent,
     ResetpasswordComponent,
-    ForgotComponent
+    ForgotComponent,
+    RefreshComponent
   ],
   imports: [
     BrowserModule,

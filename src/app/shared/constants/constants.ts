@@ -18,4 +18,5 @@ export class Constants {
     public static unauthorized = "/unauthorized";
     public static searchUser = "/subscriber";
     public static resetPassword = "/resetpassword"
+    public static refresh = "/refresh";
 }

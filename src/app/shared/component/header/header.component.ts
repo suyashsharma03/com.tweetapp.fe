@@ -35,6 +35,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.destroy.complete();
   }
 
+  public logout(): void {
+    localStorage.clear();
+    sessionStorage.clear();
+    this.store.dispatch(new userActions.ResetLogin());
+  }
+
   private initializeSearchForm(): void {
     this.searchForm = this.formBuilder.group({
       search: [""]

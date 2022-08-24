@@ -24,6 +24,18 @@ export class UserCreateEffects {
         {dispatch: false}
     );
 
+    redirectToTweet$ = createEffect(
+        () => {
+            return this.actions$.pipe(
+                ofType(userActions.ActionTypes.redirectToHome),
+                tap(() => {
+                    this.router.navigate([Constants.homePage]);
+                })
+            );
+        },
+        {dispatch: false}
+    );
+
     redirectToRegistration$ = createEffect(
         () => {
             return this.actions$.pipe(

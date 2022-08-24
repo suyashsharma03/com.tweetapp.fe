@@ -6,7 +6,7 @@
 </div>
 <div class="alert alert-success sticky-top" role="alert" *ngIf="isPosted">
     {{ "tweet.postedSuccessful" | translate }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="falseDirective()">
       <span aria-hidden="true">&times;</span>
     </button>
 </div>

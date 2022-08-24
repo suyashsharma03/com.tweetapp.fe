@@ -38,10 +38,17 @@
                       <ul class="list-unstyled">
                           <li>
                             <a (click)="likeStatus(tweet.id)">
+                              <span *ngIf="tweet.likes || likeTweetCount">
+                                <ng-container *ngIf="tweet.id === likeTweetId; else likeSpace">
+                                  <strong class="textBlack">{{likeTweetCount}}</strong>
+                                </ng-container>
+                                <ng-template #likeSpace>
+                                  <strong class="textBlack" *ngIf="tweet.likes">{{tweet.likes}}</strong>
+                                </ng-template>
+                              </span>
                               <img src="{{ likeImageSrc }}" width="30">
                               {{ "posts.like" | translate }}
                             </a>
-                            <span *ngIf="tweet.likes">{{tweet.likes}}</span>
                           </li>
                           <li>
                             <a (click)="commentClicked()">

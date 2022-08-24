@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { ValidationService } from "../../../../shared/services/validation.service";
 import { Tweet } from "../../model/tweet.model";
 import { PostsComponent } from "../posts/posts.component";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-tweet",
@@ -34,6 +35,7 @@ export class TweetComponent implements OnInit, OnDestroy {
     private readonly store: Store<fromApp.TweetAppState>,
     private readonly formBuilder: FormBuilder,
     private readonly validationService: ValidationService,
+    private readonly router: Router
   ) { }
 
   ngOnInit(): void {
@@ -102,23 +104,32 @@ export class TweetComponent implements OnInit, OnDestroy {
         tweetText: this.tweetForm?.value?.tweetBox
       }
       this.store.dispatch(new tweetActions.CreateTweet(this.tweet, this.userName));
-      this.store
+      this.checkIsPosted();
+    }
+  }
+
+  private checkIsPosted(): void {
+    this.store
       .select(fromApp.AppStates.tweetState)
       .pipe(takeUntil(this.destroy))
       .subscribe((tweetState) => { 
-        if(tweetState.error){
-          this.errorMessage = tweetState.error.errorMessage;
+        if(tweetState?.error?.errorMessage){
+          this.errorMessage = tweetState?.error?.errorMessage;
           this.isInvalid = true;
           this.isPosted = false;
         }
-        else {
+        else if(!tweetState?.error?.errorMessage && tweetState?.tweetResponse){
           this.tweetForm.reset();
           this.tweetForm.markAsPristine();
-          this.posts.fetchTweets();
-          this.posts.setTweets();
           this.isPosted = true;
+          this.isInvalid = false;
+          this.store.dispatch(new tweetActions.GotoRefresh());
         }
       });
-    }
+  }
+
+  public falseDirective(): void {
+    this.isInvalid = false;
+    this.isPosted = false;
   }
 }

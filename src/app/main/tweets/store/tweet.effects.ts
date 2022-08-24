@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Observable, of } from "rxjs";
 import { catchError, map, switchMap, tap } from "rxjs/operators";
+import { Successful } from "src/app/shared/model/success.model";
 import { Constants } from "../../../shared/constants/constants";
 import { UserDetails } from "../../user/model/login.model";
 import { TweetResponse } from "../model/tweet.model";
@@ -18,6 +19,18 @@ export class TweetCreateEffects {
                 ofType(tweetActions.ActionTypes.redirectToUnAuthorized),
                 tap(() => {
                     this.router.navigate([Constants.unauthorized]);
+                })
+            );
+        },
+        {dispatch: false}
+    );
+
+    redirectToRefresh$ = createEffect(
+        () => {
+            return this.actions$.pipe(
+                ofType(tweetActions.ActionTypes.goToRefresh),
+                tap(() => {
+                    this.router.navigate([Constants.refresh]);
                 })
             );
         },
@@ -123,6 +136,90 @@ export class TweetCreateEffects {
         },
         {dispatch: false}
     );
+
+    likeUnlikeTweets$ = createEffect(
+        () => {
+            return this.actions$.pipe(
+                ofType(tweetActions.ActionTypes.likeUnlikeTweet),
+                switchMap((input: tweetActions.LikeUnlikeTweet) => 
+                    this.likeUnlikeTweetSwitchMap(input)
+                )
+            );
+        }
+    );
+
+    private likeUnlikeTweetSwitchMap(input: tweetActions.LikeUnlikeTweet) {
+        return this.httpService.likeUnlikeTweet(input.userName, input.tweetId)
+        .pipe(
+            map((resData: number) => {
+                return new tweetActions.SetLikes(resData)
+            }),
+            catchError((error) => this.setErrorMessage(error))
+        );
+    }
+
+    replyTweets$ = createEffect(
+        () => {
+            return this.actions$.pipe(
+                ofType(tweetActions.ActionTypes.replyTweet),
+                switchMap((input: tweetActions.ReplyTweet) => 
+                    this.replyTweetSwitchMap(input)
+                )
+            );
+        }
+    );
+
+    private replyTweetSwitchMap(input: tweetActions.ReplyTweet) {
+        return this.httpService.replyTweet(input.userName, input.tweetId, input.payload)
+        .pipe(
+            map((resData: boolean) => {
+                return new tweetActions.ReplySuccessful(resData)
+            }),
+            catchError((error) => this.setErrorMessage(error))
+        );
+    }
+
+    updateTweets$ = createEffect(
+        () => {
+            return this.actions$.pipe(
+                ofType(tweetActions.ActionTypes.updateTweet),
+                switchMap((input: tweetActions.UpdateTweet) => 
+                    this.updateTweetSwitchMap(input)
+                )
+            );
+        }
+    );
+
+    private updateTweetSwitchMap(input: tweetActions.UpdateTweet) {
+        return this.httpService.updateTweet(input.userName, input.tweetId, input.payload)
+        .pipe(
+            map((resData: TweetResponse) => {
+                return new tweetActions.ResponseTweet(resData)
+            }),
+            catchError((error) => this.setErrorMessage(error))
+        );
+    }
+
+    deleteTweets$ = createEffect(
+        () => {
+            return this.actions$.pipe(
+                ofType(tweetActions.ActionTypes.deleteTweet),
+                switchMap((input: tweetActions.DeleteTweet) => 
+                    this.deleteTweetSwitchMap(input)
+                )
+            );
+        }
+    );
+
+    private deleteTweetSwitchMap(input: tweetActions.DeleteTweet) {
+        return this.httpService.deleteTweet(input.tweetId)
+        .pipe(
+            map((resData: Successful) => {
+                return new tweetActions.TweetSuccess(resData)
+            }),
+            catchError((error) => this.setErrorMessage(error))
+        );
+    }
 
     private setErrorMessage(error): Observable<tweetActions.TweetError> {
         console.log(error);
