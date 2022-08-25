@@ -5,7 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
+    "test": "ng test --code-coverage --browsers=Chrome",
+    "test-single-headless": "ng test --watch=false --code-coverage --browsers=ChromeHeadless",
     "scss-lint": "stylelint \"**/*.scss\" --fix",
     "lint": "ng lint --fix",
     "e2e": "ng e2e"

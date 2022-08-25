@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { StoreModule } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { RefreshComponent } from './refresh.component';
 
@@ -8,6 +10,10 @@ describe('RefreshComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [
+        StoreModule.forRoot({}),
+        TranslateModule.forRoot({}),
+      ],
       declarations: [ RefreshComponent ]
     })
     .compileComponents();

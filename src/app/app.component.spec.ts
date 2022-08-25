@@ -1,35 +1,53 @@
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
+import { Location } from "@angular/common";
+import { Component } from "@angular/core";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { RouterTestingModule } from "@angular/router/testing";
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
+import { AppComponent } from "./app.component";
 
-describe('AppComponent', () => {
+describe("AppComponent", () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+  let location: Location;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        TranslateModule.forRoot({}),
       ],
       declarations: [
         AppComponent
       ],
+      providers: [
+        
+      ]
     }).compileComponents();
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it("should create the app", () => {
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'com-tweetapp'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
+  it(`should have as title "com-tweetapp"`, () => {
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('com-tweetapp');
+    expect(app.title).toEqual("com-tweetapp");
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('com-tweetapp app is running!');
+  it("should call setLoginStatus - true condition", () => {
+    component.setLoginStatus();
+    expect(component.setLoginStatus).toBeDefined()
   });
+
+  // it("should call setLoginStatus - false condition", () => {
+  //   location.path().concat("login");
+  //   component.setLoginStatus();
+  //   expect(component.isLoggedIn).toBeFalse()
+  // });
 });

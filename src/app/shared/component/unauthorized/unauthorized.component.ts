@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as userActions from "../../../main/user/store/user.action";
 import * as fromApp from "../../../store/tweetapp.reducer";
