@@ -15,7 +15,7 @@ export interface TweetResponse {
 }
 
 export interface ReplyTweet {
-    replyTweet: string;
+    replyText: string;
     userId: string;
     dateAndTimeOfReply: Date;
     firstName: string;

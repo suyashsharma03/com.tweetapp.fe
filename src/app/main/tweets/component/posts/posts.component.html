@@ -51,7 +51,7 @@
                             </a>
                           </li>
                           <li>
-                            <a (click)="commentClicked()">
+                            <a (click)="commentClicked(tweet.id, tweet.userId)">
                               <img src="../../../../../assets/icons/comment.webp" width="30">
                               {{ "posts.comment" | translate }}
                             </a>
@@ -59,10 +59,6 @@
                           <li>
                           </li>
                       </ul>
-                 </div>
-                 <div class="post-footer-comment-wrapper" *ngIf="isComment">
-                   <textarea cols="40"></textarea>
-                   <button class="btn btn-sm btn-primary commentBtn">{{ "posts.comment" | translate }}</button>
                  </div>
              </section>
              <hr>

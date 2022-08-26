@@ -29,6 +29,7 @@ import { ResetpasswordComponent } from './main/user/components/resetpassword/res
 import { ForgotComponent } from './main/user/components/forgot/forgot.component';
 import { NgHttpLoaderModule } from "ng-http-loader";
 import { RefreshComponent } from './shared/component/refresh/refresh.component';
+import { ReplyComponent } from './main/tweets/component/reply/reply.component';
 
 export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -47,7 +48,8 @@ export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
     FooterComponent,
     ResetpasswordComponent,
     ForgotComponent,
-    RefreshComponent
+    RefreshComponent,
+    ReplyComponent
   ],
   imports: [
     BrowserModule,

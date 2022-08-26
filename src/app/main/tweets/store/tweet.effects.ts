@@ -37,6 +37,18 @@ export class TweetCreateEffects {
         {dispatch: false}
     );
 
+    redirectToModify$ = createEffect(
+        () => {
+            return this.actions$.pipe(
+                ofType(tweetActions.ActionTypes.setTweetById),
+                tap(() => {
+                    this.router.navigate([Constants.modify]);
+                })
+            );
+        },
+        {dispatch: false}
+    );
+
     postTweet$ = createEffect(
         () => {
             return this.actions$.pipe(
@@ -216,6 +228,27 @@ export class TweetCreateEffects {
         .pipe(
             map((resData: Successful) => {
                 return new tweetActions.TweetSuccess(resData)
+            }),
+            catchError((error) => this.setErrorMessage(error))
+        );
+    }
+
+    getTweetById$ = createEffect(
+        () => {
+            return this.actions$.pipe(
+                ofType(tweetActions.ActionTypes.getTweetById),
+                switchMap((input: tweetActions.GetTweetById) => 
+                    this.getTweetByIdTweetSwitchMap(input)
+                )
+            );
+        }
+    );
+
+    private getTweetByIdTweetSwitchMap(input: tweetActions.GetTweetById) {
+        return this.httpService.getTweetById(input.tweetId)
+        .pipe(
+            map((resData: TweetResponse) => {
+                return new tweetActions.SetTweetById(resData)
             }),
             catchError((error) => this.setErrorMessage(error))
         );

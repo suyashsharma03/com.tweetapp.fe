@@ -18,7 +18,6 @@ export class PostsComponent implements OnInit, OnDestroy {
 
   @Input() userId?: string;
   public likeImageSrc: string = "../../../../../assets/icons/liked.svg";
-  public isComment = false;
   public tweets: TweetResponse[];
   public userName: string;
   public likeTweetId: string;
@@ -125,8 +124,8 @@ export class PostsComponent implements OnInit, OnDestroy {
       });
   }
 
-  public commentClicked(): void {
-    this.isComment = !this.isComment;
+  public commentClicked(tweetId: string, userId: string): void {
+    this.store.dispatch(new tweetActions.GetTweetById(tweetId, false));
   }
 
   public getUserDp(userEmail: string): string {
@@ -142,10 +141,10 @@ export class PostsComponent implements OnInit, OnDestroy {
   }
 
   public editTweet(tweetId: string, userId: string): void {
-
+    this.store.dispatch(new tweetActions.GetTweetById(tweetId, true));
   }
 
-  public async deleteTweet(tweetId: string): Promise<void> {
+  public deleteTweet(tweetId: string): void {
     this.store.dispatch(new tweetActions.DeleteTweet(tweetId));
     this.store
       .select(fromApp.AppStates.tweetState)
@@ -153,11 +152,7 @@ export class PostsComponent implements OnInit, OnDestroy {
       .subscribe((tweetState) => {
         if(!tweetState?.error?.errorMessage) {
           this.deleteSuccessful = true;
-          if(this.location.path().indexOf(Constants.searchUser)){
-            this.store.dispatch(new tweetActions.GotoRefresh());
-          } else {
-            this.store.dispatch(new tweetActions.GotoRefresh());
-          }
+          this.store.dispatch(new tweetActions.GotoRefresh());
         }
       });
   }

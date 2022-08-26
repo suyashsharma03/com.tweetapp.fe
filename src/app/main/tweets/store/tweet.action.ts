@@ -23,7 +23,10 @@ export enum ActionTypes {
     setLikes = "SET_LIKES",
     replySuccessful = "REPLY_SUCCESSFUL",
     tweetSuccess = "TWEET_SUCCESS",
-    goToRefresh = "GOTO_REFRESH"
+    goToRefresh = "GOTO_REFRESH",
+    redirectToModify = "REDIRECT_TO_MODIFY",
+    getTweetById = "GET_TWEET_BY_ID",
+    setTweetById = "SET_TWEET_BY_ID",
 }
 
 export class ResetTweet implements Action {
@@ -147,6 +150,25 @@ export class TweetSuccess implements Action {
     constructor(public payload: Successful) {}
 }
 
+export class RedirectToModify implements Action {
+    readonly type = ActionTypes.redirectToModify;
+}
+
+export class GetTweetById implements Action {
+    readonly type = ActionTypes.getTweetById;
+    readonly tweetId: string;
+    readonly isEdit: boolean;
+    constructor(tweetId: string, isEdit: boolean) {
+        this.tweetId = tweetId;
+        this.isEdit = isEdit;
+    }
+}
+
+export class SetTweetById implements Action {
+    readonly type = ActionTypes.setTweetById;
+    constructor(public payload: TweetResponse) {}
+}
+
 export type TweetActions = 
     | ResetTweet
     | RedirectToUnAuthorized
@@ -166,4 +188,7 @@ export type TweetActions =
     | UpdateTweet
     | DeleteTweet
     | TweetSuccess
-    | GotoRefresh;
+    | GotoRefresh
+    | RedirectToModify
+    | GetTweetById
+    | SetTweetById;

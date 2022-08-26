@@ -8,6 +8,7 @@ import { SubscribersComponent } from "./main/tweets/component/subscribers/subscr
 import { ResetpasswordComponent } from "./main/user/components/resetpassword/resetpassword.component";
 import { ForgotComponent } from "./main/user/components/forgot/forgot.component";
 import { RefreshComponent } from "./shared/component/refresh/refresh.component";
+import { ReplyComponent } from "./main/tweets/component/reply/reply.component";
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
   {
     path: "refresh",
     component: RefreshComponent
+  },
+  {
+    path: "modify",
+    component: ReplyComponent
   }
 ];
 

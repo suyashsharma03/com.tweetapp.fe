@@ -1,0 +1,85 @@
+<div class="alert alert-danger sticky-top" role="alert" *ngIf="isInvalid">
+    {{ errorMessage }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="falseDirective">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="alert alert-success sticky-top" role="alert" *ngIf="isUpdated">
+    {{ "tweet.postedSuccessful" | translate }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="falseDirective()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="box-shadow-back" (click)="back()">
+    <button button class="btn btn-lg btn-primary">
+        {{ "backButton" | translate }}
+    </button>
+</div>
+<div class="tweet-box container">
+    <div fxLayout="column">
+        <div fxLayout="row" >
+            <div fxFlex="6"></div>
+            <div>
+                <form [formGroup]="modifyForm">
+                    <textarea
+                        rows="7" 
+                        cols="120"
+                        formControlName="tweetBox"
+                        maxlength="144"
+                        [readonly]="!isEditMode"
+                    ></textarea>
+                </form>
+            </div>
+        </div>
+                
+        <div fxFlex="20"></div>
+        <div fxLayout="row" *ngIf="isEditMode">
+            <div fxFlex="88.5"></div>
+            <button class="btn btn-primary btn-lg float-r" (click)="postTweet()">
+                {{ "tweet.postButton" | translate }}
+            </button>
+        </div>
+        <div fxLayout="row">
+            <div fxFlex="30"></div>
+            <div class="post-footer-comment-wrapper" *ngIf="!isEditMode">
+                <form [formGroup]="commentForm">
+                    <textarea cols="40" formControlName="commentBox"></textarea>
+                    <button class="btn btn-sm btn-primary commentBtn" (click)="comment()">
+                        {{ "posts.comment" | translate }}
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-5 margin-l-300">
+            <div class="panel panel-default">
+                <ng-container class="box-sizing" *ngFor="let reply of replies">
+                    <div fxLayout="column">
+                        <div class="panel-body margin-top-20 border-bottom">
+                        <section class="post-heading">
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <div class="media">
+                                        <div class="media-body">
+                                            <a class="anchor-username" (click)="goToSubscribers(tweet.userId)">
+                                            <h6 class="media-heading">
+                                                {{reply.firstName | titlecase}} {{reply.lastName | titlecase}}
+                                            </h6>
+                                            </a> 
+                                            <small class="font-size-smaller">
+                                                {{reply.dateAndTimeOfReply | date: 'medium'}}
+                                            </small>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>             
+                        </section>
+                        <section class="post-body">
+                            <p class="font-size-xlarge">{{ reply.replyText }}</p>
+                        </section>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

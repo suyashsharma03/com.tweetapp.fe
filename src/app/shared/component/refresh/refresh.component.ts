@@ -1,4 +1,3 @@
-import { Location } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import * as userActions from "../../../main/user/store/user.action";
@@ -18,5 +17,5 @@ export class RefreshComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(new userActions.RedirectToHome());
   }
-
+  
 }

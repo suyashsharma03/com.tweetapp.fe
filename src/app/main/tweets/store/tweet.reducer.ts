@@ -7,6 +7,7 @@ import * as tweetActons from "./tweet.action";
 export interface State {
     tweet: Tweet;
     tweetResponse: TweetResponse;
+    tweetById: TweetResponse;
     tweets: TweetResponse[];
     userName: string;
     error: Error,
@@ -15,11 +16,14 @@ export interface State {
     likes: number,
     replySuccessful: boolean,
     success: Successful,
+    isEdit: boolean,
+    tweetId: string;
 }
 
 export const initialState: State = {
     tweet: null,
     tweetResponse: null,
+    tweetById: null,
     tweets: null,
     userName: null,
     error: null,
@@ -28,6 +32,8 @@ export const initialState: State = {
     likes: null,
     replySuccessful: null,
     success: null,
+    isEdit: null,
+    tweetId: null,
 }
 
 export function reducer(
@@ -44,6 +50,10 @@ export function reducer(
             return { ...state, tweetResponse: action.payload };
         case tweetActons.ActionTypes.setLikes:
             return { ...state, likes: action.payload };
+        case tweetActons.ActionTypes.setTweetById:
+            return { ...state, tweetById: action.payload };
+        case tweetActons.ActionTypes.getTweetById:
+            return { ...state, isEdit: action.isEdit, tweetId: action.tweetId };
         default:
             return dividingReducerForComplexity(state, action);   
     }
