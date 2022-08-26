@@ -1,16 +1,15 @@
-import { Location } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Subject, takeUntil } from 'rxjs';
-import { UserDetails } from 'src/app/main/user/model/login.model';
+import { Location } from "@angular/common";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { Subject, takeUntil } from "rxjs";
+import { UserDetails } from "src/app/main/user/model/login.model";
 import * as fromApp from "../../../../store/tweetapp.reducer";
-import * as tweetActions from "../../store/tweet.action";
 import * as userActions from "../../../user/store/user.action";
 
 @Component({
-  selector: 'app-subscribers',
-  templateUrl: './subscribers.component.html',
-  styleUrls: ['./subscribers.component.scss']
+  selector: "app-subscribers",
+  templateUrl: "./subscribers.component.html",
+  styleUrls: ["./subscribers.component.scss"]
 })
 export class SubscribersComponent implements OnInit, OnDestroy {
 

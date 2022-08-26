@@ -1,14 +1,13 @@
 import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { Store } from "@ngrx/store";
 import { Subject, takeUntil } from "rxjs";
-import * as fromApp from "../../../../store/tweetapp.reducer";
-import * as tweetActions from "../../store/tweet.action";
-import * as userActions from "../../../user/store/user.action";
-import { FormBuilder, FormGroup } from "@angular/forms";
 import { ValidationService } from "../../../../shared/services/validation.service";
+import * as fromApp from "../../../../store/tweetapp.reducer";
+import * as userActions from "../../../user/store/user.action";
 import { Tweet } from "../../model/tweet.model";
+import * as tweetActions from "../../store/tweet.action";
 import { PostsComponent } from "../posts/posts.component";
-import { Router } from "@angular/router";
 
 @Component({
   selector: "app-tweet",
@@ -35,7 +34,6 @@ export class TweetComponent implements OnInit, OnDestroy {
     private readonly store: Store<fromApp.TweetAppState>,
     private readonly formBuilder: FormBuilder,
     private readonly validationService: ValidationService,
-    private readonly router: Router
   ) { }
 
   ngOnInit(): void {
