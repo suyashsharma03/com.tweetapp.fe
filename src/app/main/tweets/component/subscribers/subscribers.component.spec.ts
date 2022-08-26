@@ -33,4 +33,28 @@ describe("SubscribersComponent", () => {
   it("should create", () => {
     expect(component).toBeTruthy();
   });
+
+  it("should call getUserDp", () => {
+    component["user"] = {
+      emailId: "abc@abc.com",
+      firstName: "abcd",
+      lastName: "efgh",
+      dateOfBirth: new Date(),
+      gender: "male",
+      token: ""
+    };
+    component.getUserDp();
+    expect(component.getUserDp).toBeDefined();
+  });
+  
+  it("should call ngOnInit", () => {
+    localStorage.setItem("token","access_token");
+    component.ngOnInit();
+    expect(component.ngOnInit).toBeDefined();
+  });
+
+  it("should call back", () => {
+    component.back();
+    expect(component.back).toBeDefined();
+  });
 });

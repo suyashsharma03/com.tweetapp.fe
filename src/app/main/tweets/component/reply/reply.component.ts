@@ -143,7 +143,7 @@ export class ReplyComponent implements OnInit, OnDestroy {
     this.isUpdated = false;
   }
   public goToSubscribers(userId: string): void {
-
+    this.store.dispatch(new tweetActions.GetUser(userId));
   }
 
   public back(): void {

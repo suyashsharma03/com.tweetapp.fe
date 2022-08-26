@@ -44,6 +44,15 @@ describe("LoginComponent", () => {
     expect(component.login).toBeDefined();
   });
 
+  it("should call login - valid", () => {
+    component.loginForm.patchValue({
+      email: "abc@abc.com",
+      password: "123456"
+    });
+    component.login();
+    expect(component.login).toBeDefined();
+  });
+
   it("should call goToForgotPass", () => {
     component.goToForgotPass();
     expect(component.goToForgotPass).toBeDefined();

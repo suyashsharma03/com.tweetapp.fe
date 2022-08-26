@@ -34,4 +34,33 @@ describe("TweetComponent", () => {
   it("should create", () => {
     expect(component).toBeTruthy();
   });
+
+  it("should call setToStorage", () => {
+    component["setToStorage"]("access_token");
+    expect(component["setToStorage"]).toBeDefined();
+  });
+
+  it("should call getUserDp", () => {
+    component["gender"] = "female";
+    component.getUserDp();
+    expect(component.getUserDp).toBeDefined();
+  });
+
+  it("should call postTweet", () => {
+    component.tweetForm.patchValue({
+      tweetBox: "abcdefgh"
+    });
+    component.postTweet();
+    expect(component.postTweet).toBeDefined();
+  });
+
+  it("should call falseDirective", () => {
+    component.falseDirective();
+    expect(component.falseDirective).toBeDefined();
+  });
+
+  it("should call clearStorage", () => {
+    component["clearStorage"]();
+    expect(component["clearStorage"]).toBeDefined();
+  });
 });

@@ -67,9 +67,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       .select(fromApp.AppStates.userState)
       .pipe(takeUntil(this.destroy))
       .subscribe((userState) => { 
-        if(userState.error){
+        if(userState?.error){
           this.errorFromApi = true;
-          this.errorMessage = userState.error.errorMessage;
+          this.errorMessage = userState?.error?.errorMessage;
         }
       });
     }

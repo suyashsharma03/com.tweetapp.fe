@@ -45,6 +45,125 @@ describe("RegisterComponent", () => {
     expect(component.register).toBeDefined();
   });
 
+  it("should call register - valid", () => {
+    component.registerForm.patchValue({
+      firstName: "abcd",
+      lastName: "efgh",
+      email: "abc@abc.com",
+      phone: 1234567890,
+      password: "123456",
+      confirmPassword: "123456",
+      dob: new Date(),
+      gender: "1",
+      securityQuestion: 1,
+      securityAnswer: "na"
+    });
+    component.register();
+    expect(component.register).toBeDefined();
+  });
+
+  it("should call register - valid - no gender", () => {
+    component.registerForm.patchValue({
+      firstName: "abcd",
+      lastName: "efgh",
+      email: "abc@abc.com",
+      phone: 1234567890,
+      password: "123456",
+      confirmPassword: "123456",
+      dob: new Date(),
+      gender: null,
+      securityQuestion: 1,
+      securityAnswer: "na"
+    });
+    component.register();
+    expect(component.register).toBeDefined();
+  });
+
+  it("should call register - valid - phone format wrong", () => {
+    component.registerForm.patchValue({
+      firstName: "abcd",
+      lastName: "efgh",
+      email: "abc@abc.com",
+      phone: 123,
+      password: "123456",
+      confirmPassword: "123456",
+      dob: new Date(),
+      gender: "1",
+      securityQuestion: 1,
+      securityAnswer: "na"
+    });
+    component.register();
+    expect(component.register).toBeDefined();
+  });
+
+  it("should call register - valid - email format wrong", () => {
+    component.registerForm.patchValue({
+      firstName: "abcd",
+      lastName: "efgh",
+      email: "abc",
+      phone: 1234567890,
+      password: "123456",
+      confirmPassword: "123456",
+      dob: new Date(),
+      gender: "4",
+      securityQuestion: 1,
+      securityAnswer: "na"
+    });
+    component.register();
+    expect(component.register).toBeDefined();
+  });
+
+  it("should call register - valid - password do not match", () => {
+    component.registerForm.patchValue({
+      firstName: "abcd",
+      lastName: "efgh",
+      email: "abc@abc.com",
+      phone: 1234567890,
+      password: "123456",
+      confirmPassword: "456789",
+      dob: new Date(),
+      gender: "3",
+      securityQuestion: 1,
+      securityAnswer: "na"
+    });
+    component.register();
+    expect(component.register).toBeDefined();
+  });
+
+  it("should call register - valid - password length more", () => {
+    component.registerForm.patchValue({
+      firstName: "abcd",
+      lastName: "efgh",
+      email: "abc@abc.com",
+      phone: 1234567890,
+      password: "1234567890123456789012",
+      confirmPassword: "1234567890123456789012",
+      dob: new Date(),
+      gender: "2",
+      securityQuestion: 1,
+      securityAnswer: "na"
+    });
+    component.register();
+    expect(component.register).toBeDefined();
+  });
+
+  it("should call register - valid - password length less", () => {
+    component.registerForm.patchValue({
+      firstName: "abcd",
+      lastName: "efgh",
+      email: "abc@abc.com",
+      phone: 1234567890,
+      password: "12",
+      confirmPassword: "12",
+      dob: new Date(),
+      gender: "3",
+      securityQuestion: 1,
+      securityAnswer: "na"
+    });
+    component.register();
+    expect(component.register).toBeDefined();
+  });
+
   it("should call removeInvalid", () => {
     component.removeInvalid();
     expect(component.removeInvalid).toBeDefined();

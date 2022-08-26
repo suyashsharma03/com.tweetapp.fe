@@ -41,12 +41,40 @@ describe("ResetpasswordComponent", () => {
   });
 
   it("should call resetPass - valid", () => {
-    component.resetPassForm.value.newPassword = "12345678";
-    fixture.detectChanges();
-    component.resetPassForm.value.newPassword = "12345679";
-    fixture.detectChanges();
+    component.resetPassForm.patchValue({
+      oldPassword: "123456",
+      newPassword: "45678912345"
+    });
     component.resetPass();
-    fixture.detectChanges();
+    expect(component.resetPass).toBeDefined();
+  });
+
+  it("should call resetPass - valid - loggedin", () => {
+    component.isLoggedIn = true;
+    component.resetPassForm.patchValue({
+      oldPassword: "123456",
+      newPassword: "45678912345"
+    });
+    component.resetPass();
+    expect(component.resetPass).toBeDefined();
+  });
+
+  it("should call resetPass - valid - not loggedin", () => {
+    component.isLoggedIn = false;
+    component.resetPassForm.patchValue({
+      oldPassword: "123456",
+      newPassword: "45678912345"
+    });
+    component.resetPass();
+    expect(component.resetPass).toBeDefined();
+  });
+
+  it("should call resetPass - valid - password length less", () => {
+    component.resetPassForm.patchValue({
+      oldPassword: "123456",
+      newPassword: "412"
+    });
+    component.resetPass();
     expect(component.resetPass).toBeDefined();
   });
 

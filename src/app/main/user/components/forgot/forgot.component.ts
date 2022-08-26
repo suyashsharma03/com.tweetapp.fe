@@ -103,9 +103,9 @@ export class ForgotComponent implements OnInit {
       .select(fromApp.AppStates.userState)
       .pipe(takeUntil(this.destroy))
       .subscribe((userState) => {
-        if(userState.error && userState?.error?.errorMessage) {
+        if(userState?.error && userState?.error?.errorMessage) {
           this.invalid = true;
-          this.errorMessage = userState.error.errorMessage;
+          this.errorMessage = userState?.error?.errorMessage;
           if(!this.errorMessage) {
             this.errorMessage = this.errorMessage = this.translateService.instant("registers.generalInvalidMessage") as string;
           }

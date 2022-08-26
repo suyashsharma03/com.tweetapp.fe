@@ -163,13 +163,13 @@ export class ResetpasswordComponent implements OnInit, OnDestroy {
       .select(fromApp.AppStates.userState)
       .pipe(takeUntil(this.destroy))
       .subscribe((userState) => { 
-        if(userState.error && userState?.error?.errorMessage && !userState?.success) {
+        if(userState?.error && userState?.error?.errorMessage && !userState?.success) {
           this.invalid = true;
-          this.errorMessage = userState.error.errorMessage;
+          this.errorMessage = userState?.error?.errorMessage;
         }
         else if(userState?.success && userState?.success?.message) {
           this.isSuccess = true;
-          this.successMessage = userState.success.message;
+          this.successMessage = userState?.success?.message;
           this.resetPassForm.reset();
           this.resetPassForm.markAsPristine();
           if(!this.isLoggedIn) {

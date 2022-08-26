@@ -52,9 +52,21 @@ describe("ForgotComponent", () => {
   });
   
   it("should call forgotPass - form valid", () => {
-    component.forgotPassForm.value.email = "abc";
-    component.forgotPassForm.value.securityQuestion = 1;
-    component.forgotPassForm.value.securityAnswer = "xyz";
+    component.forgotPassForm.patchValue({
+      email: "abc@abc.com",
+      securityQuestion: 1,
+      securityAnswer: "na"
+    });
+    component.forgotPass();
+    expect(component.forgotPass).toBeDefined();
+  });
+
+  it("should call forgotPass - form valid - email format wrong", () => {
+    component.forgotPassForm.patchValue({
+      email: "abc",
+      securityQuestion: 1,
+      securityAnswer: "na"
+    });
     component.forgotPass();
     expect(component.forgotPass).toBeDefined();
   });

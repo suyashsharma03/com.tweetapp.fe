@@ -57,7 +57,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         .select(fromApp.AppStates.userState)
         .pipe(takeUntil(this.destroy))
         .subscribe((userState) => {
-          this.userName = userState.user.emailId;
+          this.userName = userState?.user?.emailId;
         }
       );
       this.store.dispatch(new tweetActions.GetUser(this.userName));

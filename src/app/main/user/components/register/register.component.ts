@@ -218,9 +218,9 @@ export class RegisterComponent implements OnInit {
       .select(fromApp.AppStates.userState)
       .pipe(takeUntil(this.destroy))
       .subscribe((userState) => { 
-        if(userState.error){
+        if(userState?.error){
           this.isInvalid = true;
-          this.invalidText = userState.error.errorMessage;
+          this.invalidText = userState?.error?.errorMessage;
         }
       });
   }
