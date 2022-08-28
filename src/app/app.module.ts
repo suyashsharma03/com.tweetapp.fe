@@ -22,7 +22,7 @@ import { UnauthorizedComponent } from './shared/component/unauthorized/unauthori
 import { TweetCreateEffects } from "./main/tweets/store/tweet.effects";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { TweetService } from "./main/tweets/service/tweet.service";
-import { AuthInterceptor } from "./shared/interceptor/AuthInterceptor";
+import { AuthInterceptor } from "./shared/interceptor/authinterceptor";
 import { SubscribersComponent } from './main/tweets/component/subscribers/subscribers.component';
 import { FooterComponent } from './shared/component/footer/footer.component';
 import { ResetpasswordComponent } from './main/user/components/resetpassword/resetpassword.component';
