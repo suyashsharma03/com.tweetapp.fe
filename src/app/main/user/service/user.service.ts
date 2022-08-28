@@ -12,7 +12,8 @@ export class UserService {
     constructor(
         private readonly httpClient: HttpClient
     ) {
-        this.basePath = "http://localhost:48897/api/v1.0/tweets";
+        //this.basePath = "http://localhost:48897/api/v1.0/tweets";
+        this.basePath = "http://tweetapp.egbvhgbbcecmfzgu.centralindia.azurecontainer.io/api/v1.0/tweets";
     }
 
     postLogin(userLogin: UserLogin):
